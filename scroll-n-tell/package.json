@@ -1,6 +1,7 @@
 {
-	"name": "scrollyteller",
+	"name": "scroll-n-tell",
 	"version": "0.0.1",
+	"main": "dist/index.js",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit package && npm run bundle",

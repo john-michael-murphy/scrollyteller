@@ -1,0 +1,9 @@
+{
+  "name": "scroll-n-tell",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/john-michael-murphy/scrollyteller"
+  },
+  "type": "module"
+}
