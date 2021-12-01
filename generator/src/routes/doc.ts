@@ -26,15 +26,15 @@ export const get: RequestHandler = async ({ query }) => {
     const slides = output.slides || output.Slides
 
     output.slides = slides.map(s => {
-      const slide = s.slide || s.Slide;
       const annotation = s.annotation || s.Annotation;
-      return { slide, annotation }
-    });
-
-    output.slides.map(async s => {
-      s
-
-    })
+      const text = s.text || s.Text;
+      if (text) return { slide: { value: text, type: 'text' }, annotation }
+      const image = s.image || s.Image;
+      if (image) return { slide: { value: image, type: 'image' }, annotation }
+      const video = s.video || s.Video;
+      if (video) return { slide: { value: video, type: 'video' }, annotation }
+      return;
+    }).filter(Boolean);
 
     return {
       status: 200,

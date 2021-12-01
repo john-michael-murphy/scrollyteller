@@ -41,6 +41,7 @@
 		justify-content: center;
 		align-items: center;
 		box-shadow: 0px -6px 23px -8px rgba(0, 0, 0, 0.75);
+		z-index: 1;
 	}
 
 	.scrolly-code-container {

@@ -2,7 +2,6 @@
 	import Scrollyteller from '$lib/Scrollyteller.svelte';
 </script>
 
-<div style="height: 1000px; background:pink;" />
 <Scrollyteller
 	slides={[
 		{
@@ -11,7 +10,7 @@
 			slide: {
 				type: 'text',
 				value:
-					'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sapien risus. Suspendisse potenti. Proin tincidunt in metus consectetur pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In posuere dolor mi, ut dictum nibh convallis non. Nam varius est in libero sollicitudin tempor. Morbi euismod tempor felis, elementum lobortis leo tristique et. In bibendum at ex finibus placerat.'
+					'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sapien risus. Suspendisse potenti. Proin tincidunt in metus consectetur pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In posuere dolor mi, ut dictum nibh convallis non. Nam varius est in libero sollicitudin tempor. Morbi euismod tempor felis, elementum lobortis leo tristique et. In bibendum at ex finibus placerat.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sapien risus. Suspendisse potenti. Proin tincidunt in metus consectetur pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In posuere dolor mi, ut dictum nibh convallis non. Nam varius est in libero sollicitudin tempor. Morbi euismod tempor felis, elementum lobortis leo tristique et. In bibendum at ex finibus placerat.\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sapien risus. Suspendisse potenti. Proin tincidunt in metus consectetur pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In posuere dolor mi, ut dictum nibh convallis non. Nam varius est in libero sollicitudin tempor. Morbi euismod tempor felis, elementum lobortis leo tristique et. In bibendum at ex finibus placerat.\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sapien risus. Suspendisse potenti. Proin tincidunt in metus consectetur pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In posuere dolor mi, ut dictum nibh convallis non. Nam varius est in libero sollicitudin tempor. Morbi euismod tempor felis, elementum lobortis leo tristique et. In bibendum at ex finibus placerat.\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus non sapien risus. Suspendisse potenti. Proin tincidunt in metus consectetur pellentesque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In posuere dolor mi, ut dictum nibh convallis non. Nam varius est in libero sollicitudin tempor. Morbi euismod tempor felis, elementum lobortis leo tristique et. In bibendum at ex finibus placerat.\n'
 			}
 		},
 		{
@@ -93,4 +92,3 @@
 		}
 	]}
 />
-<div style="height: 10000px; background:pink;" />

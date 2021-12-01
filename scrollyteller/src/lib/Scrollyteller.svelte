@@ -7,7 +7,7 @@
 	const intersectionOptions = {
 		root: rootEl,
 		rootMargin: '0px',
-		threshold: 0.45
+		threshold: 0.2
 	};
 
 	const observer = new IntersectionObserver((entries) => {
@@ -23,19 +23,23 @@
 
 <section bind:this={rootEl} class="scrollyteller">
 	<ol class="scrolly-annotations">
+		<li use:observe data-index={0} style="height:50vh;" />
 		{#each slides as { annotation }, index}
-			<li class="scrolly-annotation">
+			<li class={`scrolly-annotation scrolly-annotation-${index}`}>
 				<span class="scrolly-annotation-text" use:observe data-index={index}>
 					{@html annotation}
 				</span>
 			</li>
 		{/each}
-		<li use:observe data-index={slides.length} class="scrolly-annotation" />
+		<li use:observe data-index={slides.length} style="height:120vh;" />
 	</ol>
 	<div class="scrolly-slides-outer">
 		<ol class="scrolly-slides">
 			{#each slides as { slide }, index}
-				<li class="scrolly-slide" class:visible={index === currIndex}>
+				<li
+					class={`scrolly-slide scrolly-slide-${index}`}
+					class:scrolly-visible={index === currIndex}
+				>
 					{#if slide.type === 'image'}
 						<div class="scrolly-slide-media-container">
 							<img class="scrolly-slide-media" src={slide.value} alt={`Image for slide ${index}`} />
@@ -72,18 +76,19 @@
 	}
 
 	section {
-		position: relative;
+		position: relative !important;
+		background: white;
 	}
 
 	@media (min-width: 800px) {
 		section {
-			display: grid;
-			grid-template-columns: 2fr 5fr;
+			display: grid !important;
+			grid-template-columns: 2fr 5fr !important;
 		}
 	}
 
 	.scrolly-annotations {
-		font-size: 1.2rem;
+		background: transparent;
 	}
 
 	@media (min-width: 800px) {
@@ -93,19 +98,22 @@
 	}
 
 	.scrolly-annotation {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 150vh;
-		max-width: min(100%, 500px);
-		margin: auto;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		height: 150vh !important;
+		max-width: min(100%, 500px) !important;
+		margin: auto !important;
 	}
 
 	.scrolly-annotation-text {
 		background: rgb(0, 0, 0, 0.8);
 		color: white;
-		margin: 0 20px;
-		z-index: 1;
+		padding: 15px;
+		margin: 0 30px;
+		z-index: 1 !important;
+		font-size: 1.1rem;
+		border-radius: 3px;
 	}
 
 	.scrolly-slides-outer {
@@ -115,48 +123,55 @@
 
 	@media (max-width: 800px) {
 		.scrolly-slides-outer {
-			width: 100%;
-			top: 0;
-			position: absolute;
+			width: 100% !important;
+			top: 0 !important;
+			position: absolute !important;
 		}
 	}
 
 	.scrolly-slides {
-		position: sticky;
-		top: 0;
-		height: 100vh;
+		position: sticky !important;
+		top: 0 !important;
+		height: 100vh !important;
 	}
 
 	.scrolly-slide {
-		height: 100vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: absolute;
-		top: 0;
-		opacity: 0;
-		transition: opacity 0.5s;
-		width: 100%;
-		overflow: hidden;
+		height: 100vh !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		position: absolute !important;
+		top: 0 !important;
+		opacity: 0 !important;
+		transition: opacity 0.75s;
+		width: 100% !important;
+		overflow: hidden !important;
 	}
 
-	.visible {
-		opacity: 1;
+	.scrolly-visible {
+		opacity: 1 !important;
 	}
 
 	.scrolly-slide-media-container {
-		height: 100%;
-		width: 100%;
+		height: 100% !important;
+		width: 100% !important;
 	}
 
 	.scrolly-slide-media {
-		height: 100%;
-		width: 100%;
-		object-fit: contain;
+		height: 100% !important;
+		width: 100% !important;
+		object-fit: contain !important;
 	}
 
 	.scrolly-slide-text {
 		margin: 0 20px;
 		max-width: 600px;
+		white-space: pre-wrap !important;
+	}
+
+	@media (max-width: 800px) {
+		.scrolly-slide-text {
+			font-size: 1.1rem;
+		}
 	}
 </style>

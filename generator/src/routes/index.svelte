@@ -56,7 +56,6 @@
 <style>
 	section#preview {
 		min-height: 100vh;
-		background: rgb(236, 236, 236);
 	}
 
 	:global(.scrolly-button) {

@@ -27,6 +27,7 @@ const clean = (object: any): any => {
 
 export function parse(html: string): Record<any, any> {
   html = html.replace(/&nbsp;/g, ' ');
+
   const $ = cheerio.load(html);
 
   // remove all comments
@@ -62,6 +63,7 @@ export function parse(html: string): Record<any, any> {
         style.includes('font-style:italic') && 'em',
         style.includes('font-weight:700') && 'strong',
         style.includes('text-decoration:underline') && 'u',
+        style.includes('text-decoration:line-through') && 's',
       ].filter(Boolean),
     );
 
@@ -86,29 +88,6 @@ export function parse(html: string): Record<any, any> {
 
     $a.prepend(`&lt;a href="${params.get('q')}"&gt;`).append('&lt;/a&gt;');
     $a.replaceWith($a.contents());
-  });
-
-  // replace lists with their contents
-  $('ul, ol').each((i, el) => {
-    const $ul = $(el);
-    const $replaced = $('<p/>');
-
-    $ul.find('li').each((innerI, innerEl) => {
-      const $li = $(innerEl);
-      $li.append('\n');
-      $replaced.append($li.contents());
-    });
-
-    // if list doesn't have surrounding start/end directives, add them now
-    const $prev = $ul.prev();
-    const $next = $ul.next();
-
-    if (!$prev.text().startsWith('start:') && !$next.text().startsWith('end:')) {
-      $('<p>start: .g-list-circle</p>').insertBefore($ul);
-      $('<p>end: .g-list-circle</p>').insertAfter($ul);
-    }
-
-    $ul.replaceWith($replaced);
   });
 
   const text = $('body > *')

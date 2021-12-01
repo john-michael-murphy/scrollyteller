@@ -15,9 +15,7 @@ export default [
 		plugins: [
 			nodeResolve(),
 			svelte({
-				compilerOptions: {
-					hydratable: true
-				}
+				compilerOptions: { hydratable: true }
 			}),
 			css({
 				output: 'Scrollyteller.css'
