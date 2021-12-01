@@ -5,8 +5,8 @@
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit package && npm run bundle",
-		"bundle": "rollup -c",
-		"prepublish": "npm run build",
+		"bundle": "rollup -c && cp public.package.json dist/package.json",
+		"prepublish": "npm run build",w
 		"preview": "svelte-kit preview",
 		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."

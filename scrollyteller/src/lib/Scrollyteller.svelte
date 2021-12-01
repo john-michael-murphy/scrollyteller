@@ -23,10 +23,10 @@
 
 <section bind:this={rootEl} class="scrollyteller">
 	<ol class="scrolly-annotations">
-		{#each slides as { text }, index}
+		{#each slides as { annotation }, index}
 			<li class="scrolly-annotation">
 				<span class="scrolly-annotation-text" use:observe data-index={index}>
-					{@html text}
+					{@html annotation}
 				</span>
 			</li>
 		{/each}
@@ -34,17 +34,17 @@
 	</ol>
 	<div class="scrolly-slides-outer">
 		<ol class="scrolly-slides">
-			{#each slides as { card }, index}
+			{#each slides as { slide }, index}
 				<li class="scrolly-slide" class:visible={index === currIndex}>
-					{#if card.type === 'image'}
+					{#if slide.type === 'image'}
 						<div class="scrolly-slide-media-container">
-							<img class="scrolly-slide-media" src={card.value} alt={`Image for slide ${index}`} />
+							<img class="scrolly-slide-media" src={slide.value} alt={`Image for slide ${index}`} />
 						</div>
-					{:else if card.type === 'video'}
+					{:else if slide.type === 'video'}
 						<div class="scrolly-slide-media-container">
 							<video
 								class="scrolly-slide-media"
-								src={card.value}
+								src={slide.value}
 								autoplay
 								loop
 								muted
@@ -53,7 +53,7 @@
 						</div>
 					{:else}
 						<span class="scrolly-slide-text">
-							{@html card.value}
+							{@html slide.value}
 						</span>
 					{/if}
 				</li>
