@@ -36,6 +36,7 @@
 	let scrollyEl;
 
 	$: if (scrollyEl && data) {
+		scrollyEl.querySelectorAll('*').forEach((n) => n.remove());
 		Scrolly.render(data, scrollyEl);
 	}
 </script>
@@ -45,7 +46,9 @@
 	{#if error}
 		<ErrorMessage {error} />
 	{:else}
-		<section id="preview" bind:this={scrollyEl} />
+		{#key data}
+			<section id="preview" bind:this={scrollyEl} />
+		{/key}
 		<Embed {data} />
 	{/if}
 </main>
@@ -53,7 +56,6 @@
 <style>
 	section#preview {
 		min-height: 100vh;
-		background: rgb(236, 236, 236);
 	}
 
 	:global(.scrolly-button) {

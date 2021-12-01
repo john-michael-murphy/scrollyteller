@@ -1,6 +1,6 @@
 {
-  "name": "generator",
   "version": "0.0.1",
+  "private": true,
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -31,8 +31,10 @@
   "dependencies": {
     "@googleapis/drive": "^2.0.2",
     "archieml": "^0.5.0",
+    "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.10",
     "google-auth-library": "^7.10.2",
-    "scroll-n-tell": "^0.0.0-alpha.1"
+    "node-fetch": "^3.1.0",
+    "scroll-n-tell": "0.0.0-alpha.3"
   }
 }

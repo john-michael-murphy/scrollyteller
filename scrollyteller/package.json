@@ -1,11 +1,10 @@
 {
-	"name": "scroll-n-tell",
 	"version": "0.0.1",
-	"main": "dist/index.js",
+	"private": true,
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit package && npm run bundle",
-		"bundle": "rollup -c",
+		"bundle": "rollup -c && cp public.package.json dist/package.json",
 		"prepublish": "npm run build",
 		"preview": "svelte-kit preview",
 		"lint": "prettier --ignore-path .gitignore  --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",

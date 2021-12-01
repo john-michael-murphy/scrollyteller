@@ -23,10 +23,18 @@ export const get: RequestHandler = async ({ query }) => {
   try {
     const output = await Doc.read(id);
 
-    output.slides = output.slides.map(slide => {
-      const card = { value: slide.card, type: 'text' };
-      return { ...slide, card }
-    })
+    const slides = output.slides || output.Slides
+
+    output.slides = slides.map(s => {
+      const annotation = s.annotation || s.Annotation;
+      const text = s.text || s.Text;
+      if (text) return { slide: { value: text, type: 'text' }, annotation }
+      const image = s.image || s.Image;
+      if (image) return { slide: { value: image, type: 'image' }, annotation }
+      const video = s.video || s.Video;
+      if (video) return { slide: { value: video, type: 'video' }, annotation }
+      return;
+    }).filter(Boolean);
 
     return {
       status: 200,
@@ -41,7 +49,6 @@ export const get: RequestHandler = async ({ query }) => {
         `${message} This is either becuase the file does not exist or is not shared correctly. Following these instructions should fix the problem: https://support.google.com/a/users/answer/9308873.`
     }
 
-    console.log({ status, message })
     return {
       status,
       body: { message }
