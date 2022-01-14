@@ -1,0 +1,17 @@
+{
+	"version": "0.0.5",
+	"name": "scroll-n-tell",
+	"type": "module",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "rollup -w -c",
+		"bundle": "rollup -c"
+	},
+	"devDependencies": {
+		"rollup": "^2.64.0",
+		"rollup-plugin-css-only": "3.1.0",
+		"rollup-plugin-svelte": "7.1.0",
+		"svelte": "3.44.2",
+		"rollup-plugin-uglify": "^6.0.4"
+	}
+}

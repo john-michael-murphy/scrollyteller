@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "release": "echo TODO",
+    "dev": "pnpm dev --parallel --aggregate-output --workspace-concurrency 2 --filter ./packages"
+  }
+}
