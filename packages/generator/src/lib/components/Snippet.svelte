@@ -1,8 +1,5 @@
-<script type="ts">
-	import { create_script_tag } from '$lib/tag';
-	export let data;
-
-	let snippet = create_script_tag(data);
+<script>
+	export let snippet;
 	let copied = false;
 	let timeoutRef;
 </script>
@@ -36,11 +33,9 @@
 	}
 
 	section {
+		all: unset;
+		display: block;
 		min-height: 100vh;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		box-shadow: 0px -6px 23px -8px rgba(0, 0, 0, 0.75);
 		z-index: 1;
 	}
 
@@ -48,7 +43,7 @@
 		position: relative;
 	}
 
-	.scrolly-code-container code {
+	.scrolly-code-container {
 		background: #fafafa;
 		padding: 5px;
 		border: 2px solid #ccc;
@@ -56,9 +51,7 @@
 	}
 
 	code {
-		display: block;
-		max-width: 800px;
-		line-break: anywhere;
+		white-space: pre-wrap;
 	}
 
 	button {

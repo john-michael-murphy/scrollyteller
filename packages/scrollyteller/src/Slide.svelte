@@ -37,11 +37,19 @@
 	}
 
 	.scrolly-slide-text {
+		font-family: var(--scrolly-serif);
 		margin: 0 20px;
-		max-width: 600px;
+		max-width: var(--scrolly-max-text-width);
 		white-space: pre-wrap !important;
-		font-family: 'Lora', serif;
 		line-height: 1.25rem;
+	}
+
+	.scrolly-slide-text :global(a) {
+		color: var(--scrolly-link-color);
+	}
+
+	.scrolly-slide-text :global(a):hover {
+		text-decoration: none;
 	}
 
 	@media (max-width: 800px) {

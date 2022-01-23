@@ -1,5 +1,5 @@
-<script lang="ts">
-	export let error: any;
+<script>
+	export let error;
 	const errorString = error?.message ?? error;
 </script>
 
@@ -16,6 +16,7 @@
 		align-items: center;
 		justify-content: center;
 		background: #fdfdfd;
+		white-space: pre;
 	}
 
 	code {

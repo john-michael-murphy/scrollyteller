@@ -27,6 +27,7 @@
 </script>
 
 <section>
+	<h1>Scrollyteller</h1>
 	<ol class="scrolly-container">
 		<li>
 			<p>
@@ -75,9 +76,9 @@
 		height: 100vh;
 		position: relative;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		box-shadow: 0px 6px 23px -8px rgba(0, 0, 0, 0.75);
 		z-index: 1;
 	}
 
@@ -105,7 +106,6 @@
 		border: 1px solid #ccc;
 		flex-grow: 1;
 		padding: 4px;
-		box-shadow: 2px 2px 18px -5px rgba(0, 0, 0, 0.75);
 		background-color: white;
 	}
 

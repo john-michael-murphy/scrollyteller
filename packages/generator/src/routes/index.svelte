@@ -7,7 +7,7 @@
 		const res = await fetch(`/doc?id=${id}`);
 
 		let body = await res.text();
-
+		console.log(body);
 		if (!res.ok) {
 			return {
 				props: { error: body }
@@ -32,7 +32,7 @@
 
 	$: if (scrollyEl && data) {
 		scrollyEl.querySelectorAll('*').forEach((n) => n.remove());
-		Scrolly.render(data, scrollyEl);
+		Scrolly.render(data.props, scrollyEl);
 	}
 </script>
 
@@ -44,7 +44,7 @@
 		{#key data}
 			<section id="preview" bind:this={scrollyEl} />
 		{/key}
-		<Embed {data} />
+		<Embed snippet={data.snippet} />
 	{/if}
 </main>
 
@@ -60,7 +60,6 @@
 		border-radius: 5px;
 		background: black;
 		color: white;
-		box-shadow: 2px 2px 18px -5px rgba(0, 0, 0, 0.75);
 		opacity: 0.75;
 		transition: opacity 0.2s ease-in-out;
 	}

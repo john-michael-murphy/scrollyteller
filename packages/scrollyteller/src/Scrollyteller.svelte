@@ -25,9 +25,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-	href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap&family=Nunito:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
 	rel="stylesheet"
 />
+
 <section bind:this={rootEl} class="scrollyteller">
 	<ol class="scrolly-annotations">
 		<li use:observe data-index={0} style="height:50vh;" />
@@ -55,6 +56,13 @@
 </section>
 
 <style>
+	:root {
+		--scrolly-serif: 'Lora', serif;
+		--scrolly-sans: 'Nunito', sans-serif;
+		--scrolly-max-text-width: 600px;
+		--scrolly-link-color: #003cbc;
+	}
+
 	ol,
 	li,
 	section,
@@ -66,7 +74,7 @@
 	section {
 		position: relative !important;
 		background: white;
-		font-family: 'Roboto', sans-serif;
+		font-family: var(--scrolly-sans);
 	}
 
 	@media (min-width: 800px) {
@@ -99,11 +107,20 @@
 	.scrolly-annotation-text {
 		background: rgb(0, 0, 0, 0.8);
 		color: white;
-		padding: 15px;
-		margin: 0 30px;
+		padding: 10px;
+		margin: 0 10px;
 		z-index: 1 !important;
 		font-size: 1.1rem;
 		border-radius: 3px;
+		line-height: 1.3rem;
+		font-weight: 300;
+	}
+
+	.scrolly-annotation-text :global(a) {
+		color: white;
+	}
+	.scrolly-annotation-text :global(a):hover {
+		text-decoration: none;
 	}
 
 	.scrolly-slides-outer {

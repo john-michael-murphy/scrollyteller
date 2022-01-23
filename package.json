@@ -1,8 +1,14 @@
 {
   "private": true,
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "release": "echo TODO",
-    "dev": "pnpm dev --parallel --aggregate-output --workspace-concurrency 2 --filter ./packages"
+    "dev": "concurrently \"yarn workspace generator dev\" \"yarn workspace scroll-n-tell dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0"
   }
 }

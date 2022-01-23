@@ -5,13 +5,15 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"dev": "rollup -w -c",
-		"bundle": "rollup -c"
+		"bundle": "rollup -c",
+		"prepublish": "yarn bundle"
 	},
 	"devDependencies": {
 		"rollup": "^2.64.0",
 		"rollup-plugin-css-only": "3.1.0",
 		"rollup-plugin-svelte": "7.1.0",
 		"svelte": "3.44.2",
-		"rollup-plugin-uglify": "^6.0.4"
+		"rollup-plugin-uglify": "^6.0.4",
+		"@rollup/plugin-node-resolve": "13.1.3"
 	}
 }
