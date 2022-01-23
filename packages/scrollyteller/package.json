@@ -5,8 +5,8 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"dev": "rollup -w -c",
-		"bundle": "rollup -c",
-		"release": "yarn bundle && cd dist && yarn publish"
+		"build": "rollup -c",
+		"release": "yarn build && cd dist && yarn publish"
 	},
 	"devDependencies": {
 		"rollup": "^2.64.0",

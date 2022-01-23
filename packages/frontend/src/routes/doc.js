@@ -1,7 +1,7 @@
 import fetch_doc from "$lib/doc/fetch.js";
 import archieml from "$lib/doc/archieml.js";
 import transform from "$lib/doc/transform.js";
-import { create_script_tag } from '$lib/snippet/index.js';
+import { create_script_tag } from '$lib/snippet.js';
 
 /** @type {import("@sveltejs/kit").RequestHandler} */
 export async function get({ url }) {
@@ -27,7 +27,7 @@ export async function get({ url }) {
     const output = await fetch_doc(id);
     const archie = await archieml(output);
     const props = await transform(archie);
-    const snippet = create_script_tag(props);
+    const snippet = await create_script_tag(props);
 
     return {
       status: 200,

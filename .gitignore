@@ -5,3 +5,4 @@ build/
 package/
 .env
 dist/
+yarn-error.log

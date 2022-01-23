@@ -6,7 +6,8 @@
   ],
   "scripts": {
     "release": "yarn workspace scroll-n-tell release",
-    "dev": "concurrently \"yarn workspace generator dev\" \"yarn workspace scroll-n-tell dev\""
+    "dev": "concurrently \"yarn workspace frontend dev\" \"yarn workspace scroll-n-tell dev\"",
+    "build": "yarn workspaces run build"
   },
   "devDependencies": {
     "concurrently": "^7.0.0"
