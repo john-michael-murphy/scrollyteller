@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "release": "echo TODO",
+    "release": "yarn workspace scroll-n-tell release",
     "dev": "concurrently \"yarn workspace generator dev\" \"yarn workspace scroll-n-tell dev\""
   },
   "devDependencies": {

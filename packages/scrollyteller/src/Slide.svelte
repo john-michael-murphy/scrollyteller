@@ -5,31 +5,40 @@
 	export let caption;
 </script>
 
-{#if type === 'image'}
-	<div class="scrolly-slide-media-container">
-		<img class="scrolly-slide-media" src={slide} alt={alt_text} />
-	</div>
-{:else if type === 'video'}
-	<div class="scrolly-slide-media-container">
-		<video class="scrolly-slide-media" src={slide} autoplay loop muted alt={alt_text} />
-	</div>
-{:else if type === 'iframe'}
-	<div alt={alt_text} class="scrolly-slide-iframe">
-		{@html slide}
-	</div>
-{:else}
-	<span alt={alt_text} class="scrolly-slide-text">
-		{@html slide}
-	</span>
-{/if}
-
-{#if caption}
-	<div class="scrolly-slide-caption">
-		{@html caption}
-	</div>
-{/if}
+<figure>
+	{#if type === 'image'}
+		<div class="scrolly-slide-media-container">
+			<img class="scrolly-slide-media" src={slide} alt={alt_text} />
+		</div>
+	{:else if type === 'video'}
+		<div class="scrolly-slide-media-container">
+			<video class="scrolly-slide-media" src={slide} autoplay loop muted alt={alt_text} />
+		</div>
+	{:else if type === 'iframe'}
+		<div alt={alt_text} class="scrolly-slide-iframe">
+			{@html slide}
+		</div>
+	{:else}
+		<span alt={alt_text} class="scrolly-slide-text">
+			{@html slide}
+		</span>
+	{/if}
+	{#if caption}
+		<figcaption class="scrolly-slide-caption">
+			{@html caption}
+		</figcaption>
+	{/if}
+</figure>
 
 <style>
+	figure {
+		all: unset;
+		display: block !important;
+		position: relative !important;
+		width: 100% !important;
+		margin: 20px;
+	}
+
 	.scrolly-slide-media {
 		height: 100% !important;
 		width: 100% !important;
@@ -79,12 +88,8 @@
 	}
 
 	.scrolly-slide-caption {
-		position: absolute;
-		bottom: 10px;
-		right: 10px;
 		color: black;
 		padding: 5px 10px;
 		font-size: 12px;
-		margin: 2rem;
 	}
 </style>

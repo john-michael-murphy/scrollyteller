@@ -6,7 +6,7 @@
 	"scripts": {
 		"dev": "rollup -w -c",
 		"bundle": "rollup -c",
-		"prepublish": "yarn bundle"
+		"release": "yarn bundle && cd dist && npm publish"
 	},
 	"devDependencies": {
 		"rollup": "^2.64.0",

@@ -28,7 +28,7 @@ export async function get({ url }) {
     const archie = await archieml(output);
     const props = await transform(archie);
     const snippet = create_script_tag(props);
-    console.log(snippet)
+
     return {
       status: 200,
       body: { props, snippet },

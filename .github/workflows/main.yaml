@@ -1,0 +1,14 @@
+name: main
+
+on:
+  push:
+    # branches:
+    #   - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo '//npm.pkg.github.com/:_authToken=$NPM_TOKEN' > ~/.npmrc
+      - run: yarn ci
+      - run: yarn release
