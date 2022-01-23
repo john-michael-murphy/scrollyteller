@@ -36,16 +36,6 @@
 		all: unset;
 		display: block;
 		min-height: 100vh;
-<<<<<<< HEAD:packages/frontend/src/lib/components/Snippet.svelte
-=======
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		box-shadow: 0px -6px 23px -8px rgba(0, 0, 0, 0.75);
-<<<<<<< HEAD:packages/frontend/src/lib/components/Snippet.svelte
->>>>>>> 2acf84ed45c7cc500ad20b66a5a62daa34ed9faa:generator/src/lib/components/Snippet.svelte
-=======
->>>>>>> 2acf84ed45c7cc500ad20b66a5a62daa34ed9faa:generator/src/lib/components/Snippet.svelte
 		z-index: 1;
 	}
 

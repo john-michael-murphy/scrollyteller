@@ -32,14 +32,7 @@
 
 	$: if (scrollyEl && data) {
 		scrollyEl.querySelectorAll('*').forEach((n) => n.remove());
-<<<<<<< HEAD:packages/frontend/src/routes/index.svelte
-<<<<<<< HEAD:packages/frontend/src/routes/index.svelte
 		Scrolly.render(data.props, scrollyEl);
-=======
-=======
->>>>>>> 2acf84ed45c7cc500ad20b66a5a62daa34ed9faa:generator/src/routes/index.svelte
-		Scrolly.render(data, scrollyEl);
->>>>>>> 2acf84ed45c7cc500ad20b66a5a62daa34ed9faa:generator/src/routes/index.svelte
 	}
 </script>
 
@@ -51,14 +44,7 @@
 		{#key data}
 			<section id="preview" bind:this={scrollyEl} />
 		{/key}
-<<<<<<< HEAD:packages/frontend/src/routes/index.svelte
-<<<<<<< HEAD:packages/frontend/src/routes/index.svelte
 		<Embed snippet={data.snippet} />
-=======
-=======
->>>>>>> 2acf84ed45c7cc500ad20b66a5a62daa34ed9faa:generator/src/routes/index.svelte
-		<Embed {data} />
->>>>>>> 2acf84ed45c7cc500ad20b66a5a62daa34ed9faa:generator/src/routes/index.svelte
 	{/if}
 </main>
 
