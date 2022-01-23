@@ -1,0 +1,35 @@
+{
+  "version": "0.0.0",
+  "name": "frontend",
+  "private": true,
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "yarn workspace scroll-n-tell build && svelte-kit build",
+    "package": "svelte-kit package",
+    "preview": "svelte-kit preview",
+    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "next",
+    "@sveltejs/kit": "next",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-svelte3": "^3.2.1",
+    "prettier": "^2.4.1",
+    "prettier-plugin-svelte": "^2.4.0",
+    "svelte": "^3.46.1",
+    "svelte-check": "^2.2.6",
+    "svelte-preprocess": "^4.9.4"
+  },
+  "type": "module",
+  "dependencies": {
+    "@googleapis/drive": "^2.0.2",
+    "archieml": "^0.5.0",
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
+    "google-auth-library": "^7.10.2",
+    "node-fetch": "^3.1.0",
+    "scroll-n-tell": "0.0.5"
+  }
+}
