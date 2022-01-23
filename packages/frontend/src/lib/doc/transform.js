@@ -9,8 +9,6 @@ function clean_slide(obj) {
 }
 
 function derive_type(type, slide) {
-
-
   if (IS_IMAGE.test(slide)) return 'image'
   if (IS_VIDEO.test(slide)) return 'video'
   if (YOUTUBE_LINK.test(slide)) return 'iframe'
