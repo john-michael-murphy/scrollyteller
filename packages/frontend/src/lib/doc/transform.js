@@ -8,9 +8,6 @@ function clean_slide(obj) {
   return Object.fromEntries(Object.entries(obj).map(([key, value]) => [key.toLowerCase().trim(), (value || '').trim()]))
 }
 
-/**
- * @param {string} text 
- */
 function derive_type(type, slide) {
 
 
