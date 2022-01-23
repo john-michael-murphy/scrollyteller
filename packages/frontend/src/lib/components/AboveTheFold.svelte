@@ -79,6 +79,10 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+<<<<<<< HEAD:packages/frontend/src/lib/components/AboveTheFold.svelte
+=======
+		box-shadow: 0px 6px 23px -8px rgba(0, 0, 0, 0.75);
+>>>>>>> 2acf84ed45c7cc500ad20b66a5a62daa34ed9faa:generator/src/lib/components/AboveTheFold.svelte
 		z-index: 1;
 	}
 

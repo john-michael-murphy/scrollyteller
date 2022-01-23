@@ -24,10 +24,27 @@ export async function get({ url }) {
   }
 
   try {
+<<<<<<< HEAD:packages/frontend/src/routes/doc.js
     const output = await fetch_doc(id);
     const archie = await archieml(output);
     const props = await transform(archie);
     const snippet = await create_script_tag(props);
+=======
+    const output = await Doc.read(id);
+
+    const slides = output.slides || output.Slides
+
+    output.slides = slides.map(s => {
+      const annotation = s.annotation || s.Annotation;
+      const text = s.text || s.Text;
+      if (text) return { slide: { value: text, type: 'text' }, annotation }
+      const image = s.image || s.Image;
+      if (image) return { slide: { value: image, type: 'image' }, annotation }
+      const video = s.video || s.Video;
+      if (video) return { slide: { value: video, type: 'video' }, annotation }
+      return;
+    }).filter(Boolean);
+>>>>>>> 2acf84ed45c7cc500ad20b66a5a62daa34ed9faa:generator/src/routes/doc.ts
 
     return {
       status: 200,
