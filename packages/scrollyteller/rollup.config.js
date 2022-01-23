@@ -14,10 +14,11 @@ export default {
 		svelte({ emitCss: false }),
 		{
 			generateBundle(options, bundle) {
-				const p = JSON.parse(fs.readFileSync("./package.json", "utf8"))
+				const p = JSON.parse(fs.readFileSync('package.json', "utf8"))
 				delete p.devDependencies
 				delete p.scripts;
-				fs.writeFileSync("./dist/package.json", JSON.stringify(p, null, 2))
+				if (!fs.existsSync("dist")) fs.mkdirSync("dist")
+				fs.writeFileSync("dist/package.json", JSON.stringify(p, null, 2))
 			}
 		}
 	]
