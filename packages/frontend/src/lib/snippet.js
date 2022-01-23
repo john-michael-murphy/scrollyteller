@@ -10,7 +10,7 @@ export async function create_script_tag(props) {
   const { default: { version } } = await import('scroll-n-tell/package.json')
 
   return snippet
-    .replaceAll("$ID", id)
-    .replaceAll("$JSON", json)
-    .replaceAll("$VERSION", version);
+    .replace(/\$ID/g, id)
+    .replace(/\$JSO/g, json)
+    .replace(/\$VERSION/g, version);
 }
