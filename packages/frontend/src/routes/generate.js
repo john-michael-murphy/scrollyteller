@@ -2,6 +2,7 @@ import fetch_doc from "$lib/doc/fetch.js";
 import archieml from "$lib/doc/archieml.js";
 import transform from "$lib/doc/transform.js";
 import { create_script_tag } from '$lib/snippet.js';
+import { GOOGLE_FILE_ID } from "../lib/doc/patterns.js";
 
 /** @type {import("@sveltejs/kit").RequestHandler} */
 export async function get({ url }) {
@@ -10,23 +11,33 @@ export async function get({ url }) {
   if (!id) {
     return {
       status: 403,
-      body: { message: 'Missing query parameter: "/doc?id={{google_doc_url}}"' }
+      body: 'Missing query parameter: "/generate/{{google_doc_id}}"'
     }
   }
 
-  id = /[-\w]{25,}(?!.*[-\w]{25,})/.exec(id)?.[0];
+  id = GOOGLE_FILE_ID.exec(id)?.[0]
 
   if (!id) {
     return {
       status: 403,
-      body: { message: 'Invalid Google Doc Id. Try copying and pasting the URL again.' }
+      body: 'Invalid Google Doc Id. Try copying and pasting the URL again.'
     }
   }
 
   try {
+
     const output = await fetch_doc(id);
     const archie = await archieml(output);
     const { slides = [] } = await transform(archie);
+
+    if (!slides.length) {
+      return {
+        status: 403,
+        body: 'No slides found. This is likely because the Google Doc is empty or malformated.'
+      }
+    }
+
+
     const snippet = await create_script_tag({ slides });
 
     return {
@@ -44,7 +55,7 @@ export async function get({ url }) {
 
     return {
       status,
-      body: { message }
+      body: message
     }
   }
 }

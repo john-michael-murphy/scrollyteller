@@ -1,8 +1,15 @@
 <script context="module">
-	import { TEMPLATE_ID } from '../lib/consts';
+	export async function load({ url, fetch }) {
+		let id = url.searchParams.get('id');
 
-	export async function load({ fetch }) {
-		const res = await fetch(`/generate?id=${TEMPLATE_ID}`);
+		if (!id) {
+			return {
+				status: 403,
+				error: `Missing ID. Try something like: /preview?id=${TEMPLATE_ID}`
+			};
+		}
+
+		const res = await fetch(`/generate?id=${id}`);
 
 		let body;
 
@@ -29,6 +36,7 @@
 	import TopNav from '$lib/components/TopNav.svelte';
 	import Scrollyteller from '$lib/components/Scrollyteller.svelte';
 	import ErrorMessage from '$lib/components/ErrorMessage.svelte';
+	import { TEMPLATE_ID } from '../lib/consts';
 	export let slides;
 	export let error;
 </script>

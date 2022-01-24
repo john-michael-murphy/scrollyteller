@@ -55,7 +55,7 @@
 		margin: 0 20px;
 		max-width: var(--scrolly-max-text-width);
 		white-space: pre-wrap !important;
-		line-height: 16px;
+		line-height: 20px;
 		color: black;
 		font-size: 14px;
 	}
@@ -70,7 +70,8 @@
 
 	@media (max-width: 800px) {
 		.scrolly-slide-text {
-			font-size: 1.1rem;
+			font-size: 16px;
+			line-height: 20px;
 		}
 	}
 
@@ -94,6 +95,7 @@
 		color: #6c757d;
 		padding: 5px 0;
 		font-size: 14px;
+		line-height: 18px;
 		align-self: end;
 	}
 </style>

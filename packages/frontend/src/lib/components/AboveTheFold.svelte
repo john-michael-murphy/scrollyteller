@@ -5,9 +5,11 @@
 	import Snippet from './Snippet.svelte';
 	import Scrollyteller from './Scrollyteller.svelte';
 	import Footer from './Footer.svelte';
+	import ErrorMessage from './ErrorMessage.svelte';
 
 	export let snippet;
 	export let slides;
+	export let error;
 </script>
 
 <section>
@@ -24,15 +26,21 @@
 	<h3>Usage</h3>
 	<Instructions />
 	<h3>Generate</h3>
-	<p>Paste your google doc into the field below and click render.</p>
+	<p>Paste the google doc share link into the field below...</p>
 	<Render />
-	<Snippet {snippet} />
+	{#if error}
+		<ErrorMessage {error} />
+	{/if}
+	{#if snippet}
+		<Snippet {snippet} />
+	{/if}
 	{#if slides?.length}
 		<h3>Preview</h3>
-		<p>Scroll down to preview...</p>
 	{/if}
 </section>
-<Scrollyteller {slides} />
+{#if slides?.length}
+	<Scrollyteller {slides} />
+{/if}
 <Footer />
 
 <style>
@@ -40,5 +48,6 @@
 		all: unset;
 		display: block;
 		margin: var(--sfe-section-margin);
+		min-height: 100vh;
 	}
 </style>

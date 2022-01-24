@@ -107,14 +107,21 @@
 		z-index: 1 !important;
 		font-size: 14px;
 		border-radius: 3px;
-		line-height: 16px;
+		line-height: 20px;
 		font-weight: 400;
 	}
 
-	.scrolly-annotation-text :global(a) {
+	@media (max-width: 800px) {
+		:global(.scrolly-annotation-text) {
+			font-size: 16px;
+			line-height: 20px;
+		}
+	}
+
+	:global(.scrolly-annotation-text) :global(a) {
 		color: white;
 	}
-	.scrolly-annotation-text :global(a):hover {
+	:global(.scrolly-annotation-text) :global(a):hover {
 		text-decoration: none;
 	}
 

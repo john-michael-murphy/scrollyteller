@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { TEMPLATE_ID } from '../consts';
+	import { GOOGLE_FILE_ID } from '../doc/patterns';
 
 	let inputEl;
 
@@ -28,7 +29,7 @@
 </script>
 
 <form on:submit={onSubmit}>
-	<input bind:this={inputEl} type="text" name="id" placeholder={TEMPLATE_ID} />
+	<input bind:this={inputEl} type="text" name="id" placeholder={TEMPLATE_ID} required />
 	<input type="submit" value="create" />
 </form>
 
@@ -62,14 +63,13 @@
 		cursor: pointer;
 		padding: 6px 10px 4px 10px;
 		border-radius: 5px;
-		background: var(--sfe-black30);
 		color: white;
-		opacity: 0.8;
-		transition: opacity 0.1s;
+		transition: background 0.2s ease-in-out;
 		font-weight: 300;
+		background: var(--sfe-black40);
 	}
 
 	form input[type='submit']:hover {
-		opacity: 1;
+		background: var(--sfe-black00);
 	}
 </style>
