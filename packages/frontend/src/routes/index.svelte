@@ -1,11 +1,25 @@
 <script context="module">
-	import { TEMPLATE_ID } from '$lib/consts';
+	import { GOOGLE_FILE_ID } from '$lib/doc/patterns.js';
 	export async function load({ url, fetch }) {
-		let id = url.searchParams.get('id') ?? TEMPLATE_ID;
+		let id = url.searchParams.get('id');
+
+		id = GOOGLE_FILE_ID.exec(id)?.[0];
+
+		if (!id) {
+			return {
+				props: {}
+			};
+		}
 
 		const res = await fetch(`/generate?id=${id}`);
 
 		let body = await res.text();
+
+		try {
+			body = JSON.parse(body);
+		} catch (e) {
+			throw body;
+		}
 
 		if (!res.ok) {
 			return {
@@ -14,7 +28,7 @@
 		}
 
 		return {
-			props: JSON.parse(body)
+			props: body
 		};
 	}
 </script>
