@@ -1,66 +1,67 @@
 <script>
+	import CopyIcon from './CopyIcon.svelte';
+
 	export let snippet;
 	let copied = false;
 	let timeoutRef;
+
+	const onClick = () => {
+		navigator.clipboard.writeText(snippet);
+		copied = true;
+		if (timeoutRef) clearTimeout(timeoutRef);
+		timeoutRef = setTimeout(() => {
+			copied = false;
+		}, 2000);
+	};
 </script>
 
-<section>
-	<ol start="5">
-		<li>
-			<p>Copy the code snippet and paste it into your website.</p>
-			<div class="scrolly-code-container">
-				<code>{snippet}</code>
-				<button
-					class="scrolly-button"
-					on:click={() => {
-						navigator.clipboard.writeText(snippet);
-						copied = true;
-						if (timeoutRef) clearTimeout(timeoutRef);
-						timeoutRef = setTimeout(() => {
-							copied = false;
-						}, 2000);
-					}}>{copied ? 'Copied' : 'Copy'}</button
-				>
-			</div>
-		</li>
-	</ol>
-</section>
+<button on:click={onClick}>
+	<span>{copied ? 'Copied' : 'Copy'}<CopyIcon /></span>
+	<div>
+		<code>{snippet}</code>
+	</div>
+</button>
 
 <style>
-	ol {
-		margin: 20px 40px;
-		padding: 0;
-	}
-
-	section {
-		all: unset;
-		display: block;
-		min-height: 100vh;
-		z-index: 1;
-	}
-
-	.scrolly-code-container {
-		position: relative;
-	}
-
-	.scrolly-code-container {
-		background: #fafafa;
-		padding: 5px;
-		border: 2px solid #ccc;
-		border-radius: 3px;
-	}
-
-	code {
-		white-space: pre-wrap;
-	}
-
 	button {
-		position: absolute;
-		top: 10px;
-		right: 10px;
+		all: unset;
+		position: relative;
+		background-color: var(--sfe-black00);
+		border-radius: 5px;
+		display: block;
+		color: white;
+		transition: background-color 0.2s ease-in-out;
+		cursor: pointer;
+		padding: 15px;
+		max-width: 100%;
+		box-sizing: border-box;
 	}
 
 	button:hover {
-		opacity: 1;
+		background-color: var(--sfe-black40);
+	}
+
+	code {
+		all: unset;
+		font-weight: 300;
+		font-size: 1rem;
+		white-space: pre;
+		position: relative;
+	}
+
+	span {
+		all: unset;
+		font-size: 1rem;
+		font-weight: 500;
+		fill: white;
+		display: flex;
+		align-items: center;
+		column-gap: 5px;
+		justify-content: flex-end;
+		margin-bottom: 5px;
+	}
+
+	div {
+		overflow-x: scroll;
 	}
 </style>

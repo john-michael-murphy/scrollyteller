@@ -75,23 +75,19 @@
 		position: relative !important;
 		background: white;
 		font-family: var(--scrolly-sans);
+		margin: 0 10px;
 	}
 
 	@media (min-width: 800px) {
 		section {
 			display: grid !important;
-			grid-template-columns: 2fr 5fr !important;
+			grid-template-columns: 4fr 7fr !important;
+			column-gap: 10px;
 		}
 	}
 
-	.scrolly-annotations {
+	:global(.scrolly-annotations) {
 		background: transparent;
-	}
-
-	@media (min-width: 800px) {
-		.scrolly-annotations {
-			background: black;
-		}
 	}
 
 	.scrolly-annotation {
@@ -104,11 +100,10 @@
 		white-space: pre-wrap !important;
 	}
 
-	.scrolly-annotation-text {
+	:global(.scrolly-annotation-text) {
 		background: rgb(0, 0, 0, 0.8);
 		color: white;
 		padding: 10px;
-		margin: 0 10px;
 		z-index: 1 !important;
 		font-size: 1.1rem;
 		border-radius: 3px;
@@ -143,15 +138,13 @@
 	}
 
 	.scrolly-slide {
-		height: 100vh !important;
-		display: flex !important;
-		align-items: center !important;
-		justify-content: center !important;
 		position: absolute !important;
 		top: 0 !important;
+		bottom: 0 !important;
+		right: 0 !important;
+		left: 0 !important;
 		opacity: 0 !important;
 		transition: opacity 0.75s;
-		width: 100% !important;
 		overflow: hidden !important;
 		pointer-events: none;
 	}

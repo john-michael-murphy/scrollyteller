@@ -7,13 +7,9 @@
 
 <figure>
 	{#if type === 'image'}
-		<div class="scrolly-slide-media-container">
-			<img class="scrolly-slide-media" src={slide} alt={alt_text} />
-		</div>
+		<img class="scrolly-slide-media" src={slide} alt={alt_text} />
 	{:else if type === 'video'}
-		<div class="scrolly-slide-media-container">
-			<video class="scrolly-slide-media" src={slide} autoplay loop muted alt={alt_text} />
-		</div>
+		<video class="scrolly-slide-media" src={slide} playsinline controls alt={alt_text} />
 	{:else if type === 'iframe'}
 		<div alt={alt_text} class="scrolly-slide-iframe">
 			{@html slide}
@@ -33,15 +29,22 @@
 <style>
 	figure {
 		all: unset;
-		display: block !important;
 		position: relative !important;
+		margin-right: 10px;
+		display: flex !important;
+		height: 100vh !important;
+		align-items: center !important;
+		flex-direction: column;
+		justify-content: center !important;
 		width: 100% !important;
-		margin: 20px;
+	}
+
+	figcaption {
+		display: block;
 	}
 
 	.scrolly-slide-media {
-		height: 100% !important;
-		width: 100% !important;
+		width: 100%;
 		object-fit: contain !important;
 	}
 
@@ -51,6 +54,7 @@
 		max-width: var(--scrolly-max-text-width);
 		white-space: pre-wrap !important;
 		line-height: 1.25rem;
+		color: black;
 	}
 
 	.scrolly-slide-text :global(a) {
@@ -82,14 +86,11 @@
 		width: 100%;
 	}
 
-	.scrolly-slide-media-container {
-		height: 100% !important;
-		width: 100% !important;
-	}
-
 	.scrolly-slide-caption {
-		color: black;
-		padding: 5px 10px;
-		font-size: 12px;
+		font-family: var(--scrolly-serif);
+		color: #6c757d;
+		padding: 5px 0;
+		font-size: 14px;
+		align-self: end;
 	}
 </style>

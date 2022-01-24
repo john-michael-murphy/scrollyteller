@@ -26,12 +26,12 @@ export async function get({ url }) {
   try {
     const output = await fetch_doc(id);
     const archie = await archieml(output);
-    const props = await transform(archie);
-    const snippet = await create_script_tag(props);
+    const { slides = [] } = await transform(archie);
+    const snippet = await create_script_tag({ slides });
 
     return {
       status: 200,
-      body: { props, snippet },
+      body: { slides, snippet },
     };
   } catch (response) {
     const status = +response.code;

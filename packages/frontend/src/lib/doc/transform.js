@@ -1,19 +1,50 @@
+import fetch from "node-fetch"
+
 const IS_IMAGE = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is
 const IS_VIDEO = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is
 const GDRIVE_LINK = /^https:\/\/drive\.google\.com\/file\/d\/([-\w]{25,}(?!.*[-\w]{25,}))/is
 const YOUTUBE_LINK = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/is
 const VIMEO_LINK = /^.*vimeo\.com\/([^#\&\?]*).*/is
 
+function is_url(url) {
+  try {
+    new URL(url).toString();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function guess_content_type(slide) {
+  console.log(slide)
+  try {
+    const { headers } = await fetch(slide, { method: 'GET', redirect: 'follow' });
+    const type = headers.get('content-type')?.split?.('/')?.[0];
+    if (['image', 'video'].includes(type)) {
+      return type;
+    }
+
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
+
 function clean_slide(obj) {
   return Object.fromEntries(Object.entries(obj).map(([key, value]) => [key.toLowerCase().trim(), (value || '').trim()]))
 }
 
-function derive_type(type, slide) {
+async function derive_type(type, slide) {
   if (IS_IMAGE.test(slide)) return 'image'
   if (IS_VIDEO.test(slide)) return 'video'
   if (YOUTUBE_LINK.test(slide)) return 'iframe'
   if (VIMEO_LINK.test(slide)) return 'iframe'
   if (type) return type;
+  if (is_url(slide)) {
+    const guessed_typed = await guess_content_type(slide);
+    if (guessed_typed) return guessed_typed;
+  }
+
   return 'text';
 }
 
@@ -39,14 +70,17 @@ function fix_bad_slides(text) {
 export default async function transform(doc) {
   let slides = doc?.slides || doc?.Slides || [];
 
-  slides = slides.map(s => {
+  slides = slides.map(async s => {
     let { annotation, caption, 'alt-text': alt_text, slide, type } = clean_slide(s);
 
-    type = derive_type(type, slide);
     slide = fix_bad_slides(slide);
+    type = await derive_type(type, slide);
 
     return { annotation, slide, type, caption, alt_text }
-  }).filter(({ annotation }) => annotation);
+  });
+
+  slides = await Promise.all(slides);
+  slides = slides.filter(({ annotation }) => annotation);
 
   return { slides }
 }
