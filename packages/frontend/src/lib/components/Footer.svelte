@@ -1,14 +1,15 @@
 <aside>
 	<ul>
-		<li>Made by John-Michael Murphy.</li>
+		<li>Made by John-Michael Murphy. 2022.</li>
 	</ul>
 </aside>
 
 <style>
 	aside {
-		display: block;
-		margin: var(--sfe-section-margin);
-		margin-top: 80px;
+		padding: var(--sfe-section-margin);
+		padding-top: 80px;
+		background: var(--sfe-black00);
+		color: white;
 	}
 
 	ul {

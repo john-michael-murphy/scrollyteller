@@ -45,6 +45,8 @@
 
 	.scrolly-slide-media {
 		width: 100%;
+		max-height: 80%;
+		background: black;
 		object-fit: contain !important;
 	}
 
@@ -53,8 +55,9 @@
 		margin: 0 20px;
 		max-width: var(--scrolly-max-text-width);
 		white-space: pre-wrap !important;
-		line-height: 1.25rem;
+		line-height: 16px;
 		color: black;
+		font-size: 14px;
 	}
 
 	.scrolly-slide-text :global(a) {

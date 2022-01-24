@@ -105,10 +105,10 @@
 		color: white;
 		padding: 10px;
 		z-index: 1 !important;
-		font-size: 1.1rem;
+		font-size: 14px;
 		border-radius: 3px;
-		line-height: 1.3rem;
-		font-weight: 300;
+		line-height: 16px;
+		font-weight: 400;
 	}
 
 	.scrolly-annotation-text :global(a) {
