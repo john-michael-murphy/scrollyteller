@@ -1,7 +1,8 @@
 const snippet = `<div id='$ID'></div>
 <script type="module">
   import * as Scrollyteller from 'https://unpkg.com/scroll-n-tell@^$VERSION/index.js';
-  Scrollyteller.render($JSON, document.getElementById('$ID'));
+  const props = $JSON;
+  Scrollyteller.render(props, document.getElementById('$ID'));
 </script>`
 
 export async function create_script_tag(props) {
@@ -11,6 +12,6 @@ export async function create_script_tag(props) {
 
   return snippet
     .replace(/\$ID/g, id)
-    .replace(/\$JSO/g, json)
+    .replace(/\$JSON/g, json)
     .replace(/\$VERSION/g, version);
 }
