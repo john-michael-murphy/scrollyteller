@@ -96,6 +96,5 @@
 		padding: 10px 0;
 		font-size: 14px;
 		line-height: 18px;
-		align-self: start;
 	}
 </style>

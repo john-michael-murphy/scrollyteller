@@ -121,10 +121,17 @@
 		}
 	}
 
+	@media (max-width: 800px) {
+		.scrolly-annotation-text {
+			font-size: 16px;
+			line-height: 20px;
+		}
+	}
+
 	.scrolly-annotation-text :global(a) {
 		color: white;
 	}
-	.scrolly-annotation-text :global(a):hover {
+	.scrolly-annotation-text :global(a:hover) {
 		text-decoration: none;
 	}
 
