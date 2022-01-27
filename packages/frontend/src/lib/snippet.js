@@ -1,4 +1,4 @@
-const snippet = `<div id='$ID'></div>
+const snippet = `<div id='$ID' style="min-height:100vh;width:100vw;></div>
 <script type="module">
   import * as Scrollyteller from 'https://unpkg.com/scroll-n-tell@^$VERSION/index.js';
   const props = $JSON;

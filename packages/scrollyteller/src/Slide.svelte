@@ -91,11 +91,10 @@
 	}
 
 	.scrolly-slide-caption {
-		font-family: var(--scrolly-serif);
-		color: #6c757d;
-		padding: 5px 0;
+		font-family: var(--scrolly-sans);
+		color: black;
+		padding: 10px 0;
 		font-size: 14px;
 		line-height: 18px;
-		align-self: end;
 	}
 </style>

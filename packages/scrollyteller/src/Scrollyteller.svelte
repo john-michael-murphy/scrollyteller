@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-	href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+	href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet"
 />
 
@@ -58,7 +58,7 @@
 <style>
 	:root {
 		--scrolly-serif: 'Lora', serif;
-		--scrolly-sans: 'Nunito', sans-serif;
+		--scrolly-sans: 'Overpass', sans-serif;
 		--scrolly-max-text-width: 600px;
 		--scrolly-link-color: #003cbc;
 	}
@@ -72,56 +72,66 @@
 	}
 
 	section {
-		position: relative !important;
+		position: relative;
 		background: white;
 		font-family: var(--scrolly-sans);
-		margin: 0 10px;
 	}
 
 	@media (min-width: 800px) {
 		section {
-			display: grid !important;
-			grid-template-columns: 4fr 7fr !important;
-			column-gap: 10px;
+			display: grid;
+			grid-template-columns: minmax(325px, 3fr) 7fr;
 		}
 	}
 
-	:global(.scrolly-annotations) {
-		background: transparent;
+	.scrolly-annotations {
+		background: black;
 	}
 
 	.scrolly-annotation {
-		display: flex !important;
-		align-items: center !important;
-		justify-content: center !important;
-		height: 150vh !important;
-		max-width: min(100%, 500px) !important;
-		margin: auto !important;
-		white-space: pre-wrap !important;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 150vh;
+		max-width: min(100%, 500px);
+		margin: auto;
+		white-space: pre-wrap;
 	}
 
-	:global(.scrolly-annotation-text) {
+	.scrolly-annotation-text {
 		background: rgb(0, 0, 0, 0.8);
 		color: white;
 		padding: 10px;
-		z-index: 1 !important;
-		font-size: 14px;
+		z-index: 1;
+		font-size: 20px;
 		border-radius: 3px;
-		line-height: 20px;
-		font-weight: 400;
+		line-height: 24px;
+		font-weight: 300;
+		margin: 10px;
 	}
 
 	@media (max-width: 800px) {
-		:global(.scrolly-annotation-text) {
+		.scrolly-annotation-text {
+			font-size: 16px;
+			line-height: 20px;
+		}
+
+		.scrolly-annotations {
+			background: transparent;
+		}
+	}
+
+	@media (max-width: 800px) {
+		.scrolly-annotation-text {
 			font-size: 16px;
 			line-height: 20px;
 		}
 	}
 
-	:global(.scrolly-annotation-text) :global(a) {
+	.scrolly-annotation-text :global(a) {
 		color: white;
 	}
-	:global(.scrolly-annotation-text) :global(a):hover {
+	.scrolly-annotation-text :global(a:hover) {
 		text-decoration: none;
 	}
 
@@ -132,32 +142,33 @@
 
 	@media (max-width: 800px) {
 		.scrolly-slides-outer {
-			width: 100% !important;
-			top: 0 !important;
-			position: absolute !important;
+			width: 100%;
+			top: 0;
+			position: absolute;
 		}
 	}
 
 	.scrolly-slides {
-		position: sticky !important;
-		top: 0 !important;
-		height: 100vh !important;
+		position: sticky;
+		top: 0;
+		height: 100vh;
+		margin: 0 20px;
 	}
 
 	.scrolly-slide {
-		position: absolute !important;
-		top: 0 !important;
-		bottom: 0 !important;
-		right: 0 !important;
-		left: 0 !important;
-		opacity: 0 !important;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		opacity: 0;
 		transition: opacity 0.75s;
-		overflow: hidden !important;
+		overflow: hidden;
 		pointer-events: none;
 	}
 
 	.scrolly-visible {
-		opacity: 1 !important;
+		opacity: 1;
 		pointer-events: auto;
 	}
 </style>

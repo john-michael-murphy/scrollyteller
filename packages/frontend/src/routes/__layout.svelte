@@ -57,8 +57,4 @@
 		font-size: 1.1rem;
 		line-height: 1.3;
 	}
-
-	:global(.scrollyteller .scrolly-annotation-text) {
-		background: var(--sfe-black10);
-	}
 </style>

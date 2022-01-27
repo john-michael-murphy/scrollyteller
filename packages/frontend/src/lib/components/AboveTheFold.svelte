@@ -50,4 +50,9 @@
 		margin: var(--sfe-section-margin);
 		min-height: 100vh;
 	}
+
+	h3:last-child {
+		border-bottom: 1px solid var(--sfe-black50);
+		padding-bottom: 10px;
+	}
 </style>
