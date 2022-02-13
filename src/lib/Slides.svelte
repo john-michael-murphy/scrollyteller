@@ -1,5 +1,5 @@
 <script>
-	import Slide from './Slide.svelte';
+	import Slide from '$lib/Slide.svelte';
 	export let slides;
 
 	let currIndex = 0;

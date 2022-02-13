@@ -1,24 +1,32 @@
 <script>
 	export let template_id;
+	import Snippet from './CodeSnippet.svelte';
 </script>
 
 <ol>
 	<li>
 		<p>
-			<a target="blank" rel="nofollow" href={`${template_id}/copy`}>Make a copy </a> of the
+			<a target="blank" rel="external nofollow" href={`${template_id}/copy`}>Make a copy </a> of the
 			scrollyteller
-			<a target="blank" rel="nofollow" href={`${template_id}`}>template document</a>.
+			<a target="blank" rel="external nofollow" href={`${template_id}`}>template document</a>.
 		</p>
 	</li>
 	<li>
 		<p>
-			Customize the document. Make sure to follow the <a href="http://archieml.org/">patterns</a>.
+			Customize the document. Make sure to follow the <a
+				target="blank"
+				rel="external nofollow"
+				href="http://archieml.org/">patterns</a
+			>.
 		</p>
 	</li>
 	<li>
 		<p>
-			<a href="https://support.google.com/a/users/answer/9308873">Share the document</a> so that anyone
-			on the internet with the link can view.
+			<a
+				target="blank"
+				rel="external nofollow"
+				href="https://support.google.com/a/users/answer/9308873">Share the document</a
+			> so that anyone on the internet with the link can view.
 		</p>
 	</li>
 	<li>

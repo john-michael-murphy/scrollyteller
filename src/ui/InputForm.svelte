@@ -1,18 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
-	import { TEMPLATE_ID } from '../consts';
-	import { GOOGLE_FILE_ID } from '../doc/patterns';
-
-	let inputEl;
-
-	onMount(() => {
-		const id = new URLSearchParams(window.location.search).get('id');
-
-		if (id) {
-			inputEl.value = id;
-		}
-	});
+	import { TEMPLATE_LINK } from './consts';
 
 	function onSubmit(e) {
 		e.preventDefault();
@@ -29,7 +17,7 @@
 </script>
 
 <form on:submit={onSubmit}>
-	<input bind:this={inputEl} type="text" name="id" placeholder={TEMPLATE_ID} required />
+	<input type="text" name="id" placeholder={TEMPLATE_LINK} required />
 	<input type="submit" value="create" />
 </form>
 

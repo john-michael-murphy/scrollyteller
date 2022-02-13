@@ -95,7 +95,7 @@ export default function parse(html) {
     $a.replaceWith($a.contents());
   });
 
-  const text = $('body > *')
+  const text = $('*')
     .map((i, el) => $(el).text())
     .toArray();
 

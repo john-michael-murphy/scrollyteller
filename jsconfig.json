@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "checkJs": true,
-    "noEmit": true,
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "baseUrl": ".",
+    "paths": {
+      "$lib": [
+        "src/lib"
+      ],
+      "$lib/*": [
+        "src/lib/*"
+      ]
+    }
   },
   "include": [
-    "packages/**/*"
+    "src/**/*.d.ts",
+    "src/**/*.js",
+    "src/**/*.svelte"
   ]
 }
