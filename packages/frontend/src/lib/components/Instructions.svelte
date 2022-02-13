@@ -1,17 +1,19 @@
 <script>
-	import { TEMPLATE_ID } from '$lib/consts';
+	export let template_id;
 </script>
 
 <ol>
 	<li>
 		<p>
-			<a target="blank" rel="nofollow" href={`${TEMPLATE_ID}/copy`}>Make a copy </a> of the
+			<a target="blank" rel="nofollow" href={`${template_id}/copy`}>Make a copy </a> of the
 			scrollyteller
-			<a target="blank" rel="nofollow" href={`${TEMPLATE_ID}`}>template document</a>.
+			<a target="blank" rel="nofollow" href={`${template_id}`}>template document</a>.
 		</p>
 	</li>
 	<li>
-		<p>Following the patterns, edit the document.</p>
+		<p>
+			Customize the document. Make sure to follow the <a href="http://archieml.org/">patterns</a>.
+		</p>
 	</li>
 	<li>
 		<p>
@@ -20,7 +22,10 @@
 		</p>
 	</li>
 	<li>
-		<p>Paste the document share link in the form below and click create.</p>
+		<p>Paste the share link in the field below and click create.</p>
+	</li>
+	<li>
+		<p>Use this link to</p>
 	</li>
 	<li>
 		<p>Copy the generated code snippet and paste it into your website html.</p>
@@ -28,6 +33,9 @@
 </ol>
 
 <style>
+	p {
+		display: inline;
+	}
 	ol {
 		all: unset;
 		list-style: decimal;
@@ -39,14 +47,7 @@
 		font-weight: bold;
 	}
 
-	p {
-		all: unset;
-		font-size: 1.2rem;
-		display: inline;
-		font-weight: 300;
-		color: var(--sfe-black10);
-		text-indent: 10px;
-		line-height: 1.7rem;
+	li p {
 		padding-left: 5px;
 	}
 
