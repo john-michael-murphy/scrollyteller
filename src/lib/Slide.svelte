@@ -9,6 +9,7 @@
 		const undecided = type?.then;
 
 		if (undecided) {
+			type = 'image';
 			type = await type;
 		}
 	});

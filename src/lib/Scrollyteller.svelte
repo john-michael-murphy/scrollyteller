@@ -22,7 +22,7 @@
 			const props = await get_slides(id);
 			slides = props.slides;
 		} catch (e) {
-			error = error.message;
+			error = e.message;
 		}
 	});
 </script>

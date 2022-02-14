@@ -34,7 +34,8 @@
 	}
 
 	function set_id(id) {
-		embed_url = new URL(`/embed.html?id=${id}`, window.location.origin).toString();
+		const route = import.meta.env.DEV ? 'embed' : 'embed.html';
+		embed_url = new URL(`/${route}?id=${id}`, window.location.origin).toString();
 		snippet = `<iframe frameborder="0" style="width:100%;height:750px;display:block" src="${embed_url}" />`;
 	}
 
