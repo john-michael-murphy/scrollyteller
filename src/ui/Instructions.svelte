@@ -34,7 +34,7 @@
 	}
 
 	function set_id(id) {
-		embed_url = new URL(`/embed?id=${id}`, window.location.origin).toString();
+		embed_url = new URL(`/embed.html?id=${id}`, window.location.origin).toString();
 		snippet = `<iframe frameborder="0" width="100%" style="min-height:500px;height:100vh;"  src="${embed_url}" />`;
 	}
 
