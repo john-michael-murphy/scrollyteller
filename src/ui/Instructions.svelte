@@ -36,7 +36,7 @@
 	function set_id(id) {
 		const route = import.meta.env.DEV ? 'embed' : 'embed.html';
 		embed_url = new URL(`/${route}?id=${id}`, window.location.origin).toString();
-		snippet = `<iframe frameborder="0" style="width:100%;height:750px;display:block" src="${embed_url}" />`;
+		snippet = `<iframe frameborder="0" style="width:100%;height:700px;display:block" src="${embed_url}" />`;
 	}
 
 	let copied = false;

@@ -106,6 +106,6 @@
 		padding: 10px 0;
 		font-size: 14px;
 		line-height: 18px;
-		text-align: left;
+		align-self: flex-start;
 	}
 </style>
