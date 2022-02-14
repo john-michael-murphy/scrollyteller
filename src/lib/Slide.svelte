@@ -1,8 +1,17 @@
 <script>
+	import { onMount } from 'svelte';
 	export let type;
 	export let slide;
 	export let alt_text;
 	export let caption;
+
+	onMount(async () => {
+		const undecided = type?.then;
+
+		if (undecided) {
+			type = await type;
+		}
+	});
 </script>
 
 <figure>
@@ -29,14 +38,14 @@
 <style>
 	figure {
 		all: unset;
-		position: relative !important;
+		position: relative;
 		margin-right: 10px;
-		display: flex !important;
-		height: 100vh !important;
-		align-items: center !important;
+		display: flex;
+		height: 100vh;
+		align-items: center;
 		flex-direction: column;
-		justify-content: center !important;
-		width: 100% !important;
+		justify-content: center;
+		width: 100%;
 	}
 
 	figcaption {
@@ -46,15 +55,15 @@
 	.scrolly-slide-media {
 		width: 100%;
 		max-height: 80%;
-		background: black;
-		object-fit: contain !important;
+		background: transparent;
+		object-fit: contain;
 	}
 
 	.scrolly-slide-text {
 		font-family: var(--scrolly-serif);
 		margin: 0 20px;
 		max-width: var(--scrolly-max-text-width);
-		white-space: pre-wrap !important;
+		white-space: pre-wrap;
 		line-height: 20px;
 		color: black;
 		font-size: 14px;
@@ -96,5 +105,6 @@
 		padding: 10px 0;
 		font-size: 14px;
 		line-height: 18px;
+		text-align: left;
 	}
 </style>

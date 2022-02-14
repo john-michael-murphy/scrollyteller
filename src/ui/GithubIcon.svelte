@@ -7,5 +7,6 @@
 <style>
 	svg {
 		display: inline-block;
+		fill: var(--sfe-black10);
 	}
 </style>

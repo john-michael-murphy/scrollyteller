@@ -1,4 +1,3 @@
-import url from 'url';
 import cheerio from 'cheerio';
 import archieml from 'archieml';
 
@@ -83,14 +82,20 @@ export default function parse(html) {
   // remove google tracking from links
   $('a').each((i, el) => {
     const $a = $(el);
-    const parsed = url.parse($a.attr('href') || '');
-    const params = new URLSearchParams(parsed.query || '');
+    let params;
+
+    try {
+      params = new URL($a.attr('href')).searchParams;
+    } catch (e) {
+      params = new URLSearchParams('')
+    }
+
 
     $a.prepend(`&lt;a href="${params.get('q')}"&gt;`).append('&lt;/a&gt;');
     $a.replaceWith($a.contents());
   });
 
-  const text = $('body > *')
+  const text = $('*')
     .map((i, el) => $(el).text())
     .toArray();
 

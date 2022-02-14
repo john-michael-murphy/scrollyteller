@@ -1,15 +1,28 @@
 {
-  "private": true,
-  "type": "module",
-  "workspaces": [
-    "packages/*"
-  ],
+  "version": "0.0.0",
+  "name": "scrollyteller",
   "scripts": {
-    "release": "yarn workspace scroll-n-tell release",
-    "dev": "concurrently \"yarn workspace frontend dev\" \"yarn workspace scroll-n-tell dev\"",
-    "build": "yarn workspace scroll-n-tell build && yarn workspace frontend build"
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "package": "svelte-kit package",
+    "preview": "svelte-kit preview",
+    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+    "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "concurrently": "^7.0.0"
+    "@sveltejs/adapter-static": "next",
+    "@sveltejs/kit": "next",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-svelte3": "^3.2.1",
+    "prettier": "^2.5.1",
+    "prettier-plugin-svelte": "^2.5.0",
+    "svelte": "^3.44.0",
+    "svelte-preprocess": "^4.10.3"
+  },
+  "type": "module",
+  "dependencies": {
+    "archieml": "^0.5.0",
+    "cheerio": "^1.0.0-rc.10"
   }
 }

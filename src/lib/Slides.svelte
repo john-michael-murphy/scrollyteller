@@ -1,5 +1,5 @@
 <script>
-	import Slide from './Slide.svelte';
+	import Slide from '$lib/Slide.svelte';
 	export let slides;
 
 	let currIndex = 0;
@@ -162,7 +162,7 @@
 		right: 0;
 		left: 0;
 		opacity: 0;
-		transition: opacity 0.75s;
+		transition: all 0.75s;
 		overflow: hidden;
 		pointer-events: none;
 	}
