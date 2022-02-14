@@ -3,8 +3,6 @@ export const IS_VIDEO = /^\S+\.gif|jpe?g|tiff?|png|webp|bmp$/is
 export const GDRIVE_LINK = /^https:\/\/drive\.google\.com\/file\/d\/([-\w]{25,}(?!.*[-\w]{25,}))/is
 export const YOUTUBE_LINK = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/is
 export const VIMEO_LINK = /^.*vimeo\.com\/([^#\&\?]*).*/is
-export const GOOGLE_FILE_ID = /[-\w]{25,}(?!.*[-\w]{25,})/is;
-export const GOOGLE_PUBLIC_ID = /\/([-\w]*)\/pub$/is;
 
 function is_url(url) {
   try {
@@ -15,17 +13,50 @@ function is_url(url) {
   }
 }
 
-async function guess_content_type(slide) {
-  try {
-    const { headers } = await fetch(slide, { method: 'GET', redirect: 'follow' });
-    const type = headers.get('content-type')?.split?.('/')?.[0];
-    if (['image', 'video'].includes(type)) {
-      return type;
-    }
+async function is_image(src) {
+  return new Promise((resolve, reject) => {
+    const node = document.createElement("img");
+    node.src = src;
 
-    return false;
+    node.onload = () => {
+      node.remove();
+      resolve('image')
+    };
+
+    node.onerror = () => {
+      node.remove();
+      reject(`${src} is not an image.`)
+    };
+  });
+
+}
+
+function is_video(src) {
+  return new Promise((resolve, reject) => {
+    const node = document.createElement("video");
+    node.src = src;
+
+    function handleSuccess() {
+      node.remove();
+      resolve('video')
+    };
+
+    function handleError() {
+      node.remove();
+      reject(`${src} is not a video.`)
+    };
+
+    node.onloadedmetadata = handleSuccess;
+    node.onerror = handleError;
+  });
+}
+
+async function guess_type(slide) {
+  try {
+    const type = await Promise.any([is_image(slide), is_video(slide)])
+    return type;
   } catch (e) {
-    return false;
+    return 'text';
   }
 }
 
@@ -33,18 +64,14 @@ function clean_slide(obj) {
   return Object.fromEntries(Object.entries(obj).map(([key, value]) => [key.toLowerCase().trim(), (value || '').trim()]))
 }
 
-async function derive_type(type, slide) {
+function derive_type(type, slide) {
   if (IS_IMAGE.test(slide)) return 'image'
   if (IS_VIDEO.test(slide)) return 'video'
   if (YOUTUBE_LINK.test(slide)) return 'iframe'
   if (VIMEO_LINK.test(slide)) return 'iframe'
   if (type) return type;
-  if (is_url(slide)) {
-    const guessed_typed = await guess_content_type(slide);
-    if (guessed_typed) return guessed_typed;
-  }
-
-  return 'text';
+  if (!is_url(slide)) return 'text';
+  return undefined;
 }
 
 function fix_bad_slides(text) {
@@ -73,7 +100,8 @@ export default async function data_to_props(doc) {
     let { annotation, caption, 'alt-text': alt_text, slide, type } = clean_slide(s);
 
     slide = fix_bad_slides(slide);
-    type = await derive_type(type, slide);
+    type = derive_type(type, slide);
+    if (!type) type = guess_type(slide);
 
     return { annotation, slide, type, caption, alt_text }
   });

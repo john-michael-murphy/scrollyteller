@@ -1,16 +1,6 @@
 <script>
-	import { TEMPLATE_ID } from '../ui/constants';
-	import GithubLogo from '../ui/GithubLogo.svelte';
+	import GithubIcon from '../ui/GithubIcon.svelte';
 	import Instructions from '../ui/Instructions.svelte';
-
-	let doc_id = TEMPLATE_ID;
-	// let snippet;
-
-	// function get_snippet(id) {
-	// 	let url = new URL(window.location.href);
-	// 	const embed_url = new URL(`/render?id=${id}`, url.origin);
-	// 	snippet = `<iframe frameborder="0" width="100%" height="100vh" src="${embed_url}" />`;
-	// }
 </script>
 
 <svelte:head>
@@ -23,9 +13,9 @@
 <body>
 	<main>
 		<nav>
-			<a rel="external" href="https://github.com/john-michael-murphy/scrollyteller"
-				><GithubLogo /></a
-			>
+			<a rel="external" href="https://github.com/john-michael-murphy/scrollyteller">
+				<GithubIcon />
+			</a>
 		</nav>
 		<h1>scrollyteller</h1>
 		<h2>scroll-driven storytelling</h2>
@@ -34,7 +24,7 @@
 			amet, consectetur adipiscing elit. In lacinia mattis felis ut sagittis.
 		</p>
 		<h3>Instructions</h3>
-		<Instructions {doc_id} />
+		<Instructions />
 	</main>
 	<footer>
 		<p>Made by John-Michael Murphy and Dr. Suzanne Churchill</p>
@@ -117,15 +107,14 @@
 
 	footer {
 		padding: 20px var(--sfe-gutter);
-		background: var(--sfe-black20);
 	}
 
 	footer p {
 		all: unset;
-		color: white;
-		font-size: 14px;
+		font-size: 12px;
 		width: 100%;
 		display: block;
 		text-align: center;
+		color: var(--sfe-black20);
 	}
 </style>
