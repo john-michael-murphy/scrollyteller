@@ -109,5 +109,8 @@ export default async function data_to_props(doc) {
   slides = await Promise.all(slides);
   slides = slides.filter(({ annotation }) => annotation);
 
-  return { slides }
+  let title = doc?.title || '';
+  let credit = doc?.credit || '';
+
+  return { slides, title, credit }
 }

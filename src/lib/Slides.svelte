@@ -1,8 +1,10 @@
 <script>
 	import Slide from '$lib/Slide.svelte';
 	export let slides;
+	export let title;
+	export let credit;
 
-	let currIndex = 0;
+	let currIndex = -1;
 	let rootEl;
 
 	const intersectionOptions = {
@@ -11,6 +13,9 @@
 		threshold: 0.2
 	};
 
+	$: {
+		console.log(currIndex);
+	}
 	const observer = new IntersectionObserver((entries) => {
 		const [entry] = entries;
 
@@ -31,7 +36,10 @@
 
 <section bind:this={rootEl} class="scrollyteller">
 	<ol class="scrolly-annotations">
-		<li use:observe data-index={0} style="height:50vh;" />
+		<li use:observe data-index={0} class="scrolly-title-slide">
+			<h1 class="scrolly-annotation-text">{@html title}</h1>
+			<p class="scrolly-annotation-text">{@html credit}</p>
+		</li>
 		{#each slides as { annotation }, index}
 			<li class={`scrolly-annotation scrolly-annotation-${index}`}>
 				<span class="scrolly-annotation-text" use:observe data-index={index}>
@@ -131,6 +139,7 @@
 	.scrolly-annotation-text :global(a) {
 		color: white;
 	}
+
 	.scrolly-annotation-text :global(a:hover) {
 		text-decoration: none;
 	}
@@ -162,9 +171,16 @@
 		right: 0;
 		left: 0;
 		opacity: 0;
-		transition: all 0.75s;
+		transition: all 0.25s;
 		overflow: hidden;
 		pointer-events: none;
+	}
+
+	.scrolly-title-slide {
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 
 	.scrolly-visible {

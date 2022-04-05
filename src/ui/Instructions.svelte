@@ -34,7 +34,7 @@
 	}
 
 	function set_id(id) {
-		const route = import.meta.env.DEV ? 'embed' : 'embed.html';
+		const route = import.meta.env.DEV ? 'v1/embed' : 'v1/embed.html';
 		embed_url = new URL(`/${route}?id=${id}`, window.location.origin).toString();
 		snippet = `<iframe frameborder="0" style="width:100%;height:700px;display:block" src="${embed_url}" />`;
 	}
@@ -42,14 +42,14 @@
 	let copied = false;
 	let timeoutRef;
 
-	function copy_snippet() {
-		navigator.clipboard.writeText(snippet);
-		copied = true;
-		if (timeoutRef) clearTimeout(timeoutRef);
-		timeoutRef = setTimeout(() => {
-			copied = false;
-		}, 2000);
-	}
+	// function copy_snippet() {
+	// 	navigator.clipboard.writeText(snippet);
+	// 	copied = true;
+	// 	if (timeoutRef) clearTimeout(timeoutRef);
+	// 	timeoutRef = setTimeout(() => {
+	// 		copied = false;
+	// 	}, 2000);
+	// }
 </script>
 
 <ol>
@@ -65,7 +65,7 @@
 			Customize the document. Make sure to follow the <a
 				target="blank"
 				rel="external nofollow"
-				href="http://archieml.org/">patterns</a
+				href="http://archieml.org/">template</a
 			>.
 		</p>
 	</li>
@@ -84,6 +84,7 @@
 			<input
 				type="text"
 				name="link"
+				class="border"
 				placeholder={TEMPLATE_LINK}
 				required
 				bind:this={input}
@@ -92,14 +93,16 @@
 		</form>
 	</li>
 	<li>
-		<p>Copy the html code snippet and paste it into your website code.</p>
-		<code>{snippet}</code>
-		<a class="button" target="_blank" rel="external nofollow" href={embed_url}>Preview</a>
-		<button class="button" href={embed_url} on:click={copy_snippet}>
+		<p>Use this link to share your Scrollyteller.</p>
+		<code class="border">{embed_url}</code>
+		<p>Or, copy the html code snippet below and embed it into your website code.</p>
+		<code class="border">{snippet}</code>
+		<!-- <button class="button" href={embed_url} on:click={copy_snippet}>
 			<span>{copied ? 'Copied' : 'Copy'}</span>
-		</button>
+		</button> -->
 	</li>
 </ol>
+<a class="button border" target="_blank" rel="external nofollow" href={embed_url}>Preview</a>
 
 <style>
 	ol {
@@ -112,13 +115,13 @@
 
 	li {
 		font-weight: bold;
-		margin-bottom: 10px;
+		padding-bottom: 15px;
 	}
 
 	p {
 		padding-left: 5px;
 		display: inline;
-		font-weight: 200;
+		font-weight: 300;
 	}
 
 	a {
@@ -130,19 +133,15 @@
 	}
 
 	input[type='text'] {
-		all: unset;
-		border-radius: 5px;
-		border: 1px solid var(--sfe-black50);
+		font-family: var(--sfe-font-family);
+		font-weight: 200;
 		flex-grow: 1;
-		padding: 7px 5px 3px 5px;
 		background-color: white;
 
 		font-size: 1.2rem;
-		display: inline-block;
 		font-weight: 300;
 		color: var(--sfe-black20);
 		text-indent: 5px;
-		line-height: 1.7rem;
 
 		display: block;
 		width: 100%;
@@ -152,37 +151,41 @@
 	}
 
 	input[type='text']:focus {
-		border: 1px solid var(--sfe-black10);
+		border-color: var(--sfe-black10);
+	}
+
+	input[type='text']::placeholder {
+		color: var(--sfe-black50);
 	}
 
 	code {
 		all: unset;
 		display: block;
 		font-weight: 300;
-		font-size: 1rem;
+		font-size: 1.2rem;
 		white-space: pre-wrap;
 		min-height: 40px;
-		background-color: var(--sfe-black10);
-		color: white;
-		border-radius: 5px;
+		color: var(--sfe-black10);
 		box-sizing: border-box;
 		margin: 10px 0 15px;
-		padding: 12px 10px 8px;
 		max-width: 1200px;
 	}
 
 	.button {
-		all: unset;
 		cursor: pointer;
-		padding: 6px 10px 4px 10px;
-		border-radius: 5px;
 		color: var(--sfe-black20);
 		font-weight: 500;
 		font-size: 1.2rem;
-		border: 1px solid var(--sfe-black50);
+		text-decoration: none;
 	}
 
 	.button:hover {
-		border: 1px solid var(--sfe-black10);
+		border-color: var(--sfe-black10);
+	}
+
+	.border {
+		border-radius: 5px;
+		padding: 10px;
+		border: 1px solid var(--sfe-black50);
 	}
 </style>

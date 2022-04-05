@@ -5,7 +5,7 @@
 	import transform_data from '$lib/utils/transform_data.js';
 	import Slides from '$lib/Slides.svelte';
 
-	let slides;
+	let props;
 	let error;
 
 	async function get_slides(id) {
@@ -19,8 +19,7 @@
 		try {
 			const url = new URL(window.location.href);
 			let id = url.searchParams.get('id');
-			const props = await get_slides(id);
-			slides = props.slides;
+			props = await get_slides(id);
 		} catch (e) {
 			error = e.message;
 		}
@@ -28,8 +27,8 @@
 </script>
 
 <main>
-	{#if slides?.length}
-		<Slides {slides} />
+	{#if props?.slides?.length}
+		<Slides {...props} />
 	{:else if error}
 		<code>
 			{error}
