@@ -1,17 +1,15 @@
 <script>
-	import { onMount } from 'svelte';
+import { onMount } from "svelte";
+import Loading from "./Loading.svelte";
+
+
 	export let type;
 	export let slide;
 	export let alt_text;
 	export let caption;
-
+	
 	onMount(async () => {
-		const undecided = type?.then;
-
-		if (undecided) {
-			type = 'image';
-			type = await type;
-		}
+		type = await type;
 	});
 </script>
 
@@ -24,10 +22,18 @@
 		<div alt={alt_text} class="scrolly-slide-iframe">
 			{@html slide}
 		</div>
-	{:else}
+	{:else if type === 'text'}
 		<span alt={alt_text} class="scrolly-slide-text">
 			{@html slide}
 		</span>
+	{:else if type instanceof Promise}
+		<div class="scrolly-slide-message">
+			<Loading />
+		</div>
+	{:else}
+		<div class="scrolly-slide-message">
+			<span>Error: The type "{type}" is not supported.</span>
+		</div>
 	{/if}
 	{#if caption}
 		<figcaption class="scrolly-slide-caption">
@@ -65,9 +71,9 @@
 		margin: 0 20px;
 		max-width: var(--scrolly-max-text-width);
 		white-space: pre-wrap;
-		line-height: 20px;
+		line-height: 24px;
 		color: black;
-		font-size: 14px;
+		font-size: 18px;
 	}
 
 	.scrolly-slide-text :global(a) {
@@ -100,10 +106,21 @@
 		width: 100%;
 	}
 
+	.scrolly-slide-message {
+		font-family: var(--scrolly-sans);
+		aspect-ratio: 16 / 9;
+		width: 100%;
+		background: #eee;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: center;
+	}
+
 	.scrolly-slide-caption {
 		font-family: var(--scrolly-sans);
 		color: black;
-		padding: 10px 0;
+		padding: 15px;
 		font-size: 14px;
 		line-height: 18px;
 		align-self: flex-start;

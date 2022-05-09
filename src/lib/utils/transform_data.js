@@ -16,6 +16,7 @@ function is_url(url) {
 async function is_image(src) {
   return new Promise((resolve, reject) => {
     const node = document.createElement("img");
+    node.fetchPriority = 'high';
     node.src = src;
 
     node.onload = () => {
@@ -23,12 +24,11 @@ async function is_image(src) {
       resolve('image')
     };
 
-    node.onerror = () => {
+    node.onerror = (e) => {
       node.remove();
       reject(`${src} is not an image.`)
     };
   });
-
 }
 
 function is_video(src) {
@@ -42,7 +42,6 @@ function is_video(src) {
     };
 
     function handleError() {
-      node.remove();
       reject(`${src} is not a video.`)
     };
 
@@ -93,14 +92,15 @@ function fix_bad_slides(text) {
   return text;
 }
 
-export default async function data_to_props(doc) {
+export default async function transform_data(doc) {
   let slides = doc?.slides || doc?.Slides || [];
 
-  slides = slides.map(async s => {
+  slides = slides.map(async (s) => {
     let { annotation, caption, 'alt-text': alt_text, slide, type } = clean_slide(s);
 
     slide = fix_bad_slides(slide);
     type = derive_type(type, slide);
+
     if (!type) type = guess_type(slide);
 
     return { annotation, slide, type, caption, alt_text }

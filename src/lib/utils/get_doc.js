@@ -1,4 +1,5 @@
 export default async function fetch_doc(id) {
+  if (!id) throw new Error(`Missing id from query string.`)
   const base = 'https://docs.google.com/document/d';
   const path = id?.startsWith("2PACX") ? `e/${id}/pub` : `${id}/pub`
   const url = `${base}/${path}`;

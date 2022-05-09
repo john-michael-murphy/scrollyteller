@@ -1,5 +1,7 @@
 <script>
 	import Slide from '$lib/Slide.svelte';
+	import TitleSlide from './TitleSlide.svelte';
+	
 	export let slides;
 	export let title;
 	export let credit;
@@ -10,44 +12,35 @@
 	const intersectionOptions = {
 		root: rootEl,
 		rootMargin: '0px',
-		threshold: 0.2
+		threshold: 0.1
 	};
 
-	$: {
-		console.log(currIndex);
-	}
 	const observer = new IntersectionObserver((entries) => {
 		const [entry] = entries;
-
-		currIndex = +entry.target.dataset.index;
+		if (entry.isIntersecting) {
+			currIndex = +entry.target.dataset.index;
+		}
 	}, intersectionOptions);
 
-	export function observe(node) {
+	function observe(node) {
 		observer.observe(node);
 	}
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-	rel="stylesheet"
-/>
-
-<section bind:this={rootEl} class="scrollyteller">
+<section bind:this={rootEl}>
 	<ol class="scrolly-annotations">
-		<li use:observe data-index={0} class="scrolly-title-slide">
-			<h1 class="scrolly-annotation-text">{@html title}</h1>
-			<p class="scrolly-annotation-text">{@html credit}</p>
-		</li>
+		{#if title || credit}
+			<li use:observe data-index={0}>
+				<TitleSlide {title} {credit} />
+			</li>
+		{/if}
 		{#each slides as { annotation }, index}
-			<li class={`scrolly-annotation scrolly-annotation-${index}`}>
+			<li class="scrolly-annotation">
 				<span class="scrolly-annotation-text" use:observe data-index={index}>
 					{@html annotation}
 				</span>
 			</li>
 		{/each}
-		<li use:observe data-index={slides.length} style="height:120vh;" />
 	</ol>
 	<div class="scrolly-slides-outer">
 		<ol class="scrolly-slides">
@@ -65,8 +58,8 @@
 
 <style>
 	:root {
-		--scrolly-serif: 'Lora', serif;
-		--scrolly-sans: 'Overpass', sans-serif;
+		--scrolly-serif: garamond, serif;
+		--scrolly-sans: helvetica, sans-serif;
 		--scrolly-max-text-width: 600px;
 		--scrolly-link-color: #003cbc;
 	}
@@ -82,13 +75,13 @@
 	section {
 		position: relative;
 		background: white;
-		font-family: var(--scrolly-sans);
+		font-family: var(--scrolly-serif);
 	}
 
 	@media (min-width: 800px) {
 		section {
 			display: grid;
-			grid-template-columns: minmax(325px, 3fr) 7fr;
+			grid-template-columns: minmax(400px, 3fr) 7fr;
 		}
 	}
 
@@ -100,7 +93,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 150vh;
+		height: 100vh;
 		max-width: min(100%, 500px);
 		margin: auto;
 		white-space: pre-wrap;
@@ -111,11 +104,11 @@
 		color: white;
 		padding: 10px;
 		z-index: 1;
-		font-size: 20px;
+		font-size: 22px;
 		border-radius: 3px;
-		line-height: 24px;
+		line-height: 26px;
 		font-weight: 300;
-		margin: 10px;
+		margin: 20px;
 	}
 
 	@media (max-width: 800px) {
@@ -161,7 +154,7 @@
 		position: sticky;
 		top: 0;
 		height: 100vh;
-		margin: 0 20px;
+		margin: 0;
 	}
 
 	.scrolly-slide {
@@ -171,16 +164,9 @@
 		right: 0;
 		left: 0;
 		opacity: 0;
-		transition: all 0.25s;
+		transition: all 0.15s;
 		overflow: hidden;
 		pointer-events: none;
-	}
-
-	.scrolly-title-slide {
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
 	}
 
 	.scrolly-visible {
