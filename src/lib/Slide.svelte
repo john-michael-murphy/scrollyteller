@@ -76,6 +76,10 @@ import Loading from "./Loading.svelte";
 		font-size: 18px;
 	}
 
+	.scrolly-slide-text :global(b) {
+		/* color: var(--scrolly-link-color); */
+	}
+
 	.scrolly-slide-text :global(a) {
 		color: var(--scrolly-link-color);
 	}

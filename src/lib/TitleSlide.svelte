@@ -4,33 +4,28 @@
 </script>
 
 <div>
-    <span>
-        <h1>{@html title}</h1>
-        <p>{@html credit}</p>
-    </span>
+    <h1>{@html title}</h1>
+    <hr />
+    <p>{@html credit}</p>
 </div>
 
 <style>
-    div {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        color: white;
-    }
-
-    span {
-        margin: 20px;
-    }
-
 	 h1 {
         all: unset;
         display: block;
         font-weight: 500;
 		font-size: 40px;
 		line-height: 50px;
-        margin: 20px 0;
 	}
+
+    hr {
+        all: unset;
+        display: block;
+        box-sizing: border-box;
+        border-bottom: 1px solid white;
+        margin: 20px 0;
+        width: 100px;
+    }
 
     p {
         all: unset;
