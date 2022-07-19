@@ -1,6 +1,43 @@
 <script>
-	import GithubIcon from '../ui/GithubIcon.svelte';
-	import Instructions from '../ui/Instructions.svelte';
+	import { onMount } from 'svelte';
+	import download_doc from "$lib/utils/download_doc.js";
+
+	const TEMPLATE_LINK = `https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k`;
+
+	let input;
+	let embed_url = 'Loading...';
+	let snippet = 'Loading...';
+	
+	onMount(() => {
+		input.focus();
+		set_id(TEMPLATE_LINK);
+	});
+
+	async function handle_input() {
+		const link = input.value;
+
+		let validity = '';
+		
+		if (!link) {
+			set_id(TEMPLATE_LINK);
+		} else {
+			try {
+				set_id(link);
+				await download_doc(link)
+			} catch(e) {
+				validity = e.message;
+			}
+		}
+
+		input.setCustomValidity(validity);
+		input.reportValidity();
+	}
+
+	function set_id(id) {
+		const route = import.meta.env.DEV ? 'v1/embed' : 'v1/embed.html';
+		embed_url = new URL(`/${route}?id=${id}`, window.location.origin).toString();
+		snippet = `<iframe frameborder="0" style="width:100%;height:700px;display:block" src="${embed_url}" />`;
+	}
 </script>
 
 <svelte:head>
@@ -15,18 +52,56 @@
 <body>
 	<main>
 		<nav>
-			<a rel="external" href="https://github.com/john-michael-murphy/scrollyteller">
-				<GithubIcon />
-			</a>
+			<a href="/v1/embed?id={TEMPLATE_LINK}">Example</a>
+			<a target="_blank" rel="external nofollow" href="https://github.com/john-michael-murphy/scrollyteller">Github</a>
 		</nav>
 		<h1>scrollyteller</h1>
-		<h2>scroll-driven storytelling</h2>
-		<p>
-			Scrollyteller is a tool generates scrollable slides from google docs. Lorem ipsum dolor sit
-			amet, consectetur adipiscing elit. In lacinia mattis felis ut sagittis.
-		</p>
+		<h2>Generate scroll-driven stories with Google Docs</h2>
 		<h3>Instructions</h3>
-		<Instructions />
+		<ol>
+			<li>
+				<p>
+					<a target="blank" rel="external nofollow" href={`${TEMPLATE_LINK}/copy`}>Make a copy </a>
+					of the scrollyteller
+					<a target="blank" rel="external nofollow" href={TEMPLATE_LINK}>template document</a>.
+				</p>
+			</li>
+			<li>
+				<p>Customize the document. Make sure to follow the template.</p>
+			</li>
+			<li>
+				<p>
+					<a
+						target="blank"
+						rel="external nofollow"
+						href="https://support.google.com/a/users/answer/9308870"
+						>Publish your Google Doc to the web</a
+					>, so that anyone on the internet can view it.
+				</p>
+			</li>
+			<li>
+				<p>Paste the link to your published Google Doc below.</p>
+				<form on:submit|preventDefault={handle_input}>
+					<input
+						type="text"
+						name="link"
+						class="border padding"
+						placeholder={TEMPLATE_LINK}
+						required
+						bind:this={input}
+						on:change|preventDefault={handle_input}
+					/>
+				</form>
+			</li>
+			<li>
+				<p>Use this url to link directly to your Scrollyteller.</p>
+				<span class="scrolly-url copy-box padding">
+					<code><a target="_blank" rel="external nofollow" href={embed_url}>{embed_url}</a></code>
+				</span>
+				<p>Or, copy the html code snippet below and embed it into your website code.</p>
+				<code class="copy-box padding">{snippet}</code>
+			</li>
+		</ol>
 	</main>
 	<footer>
 		<p>Made by John-Michael Murphy and Dr. Suzanne Churchill</p>
@@ -35,19 +110,10 @@
 
 <style>
 	:root {
-		--sfe-black00: #212529;
-		--sfe-black10: #3d4652;
-		--sfe-black20: #343a40;
-		--sfe-black30: #495057;
-		--sfe-black40: #6c757d;
-		--sfe-black50: #adb5bd;
-		--sfe-black60: #ced4da;
-		--sfe-black70: #dee2e6;
-		--sfe-black80: #e9ecef;
-		--sfe-gutter: 30px;
+		--sfe-black: #1a1a1a;
 		--sfe-font-family: 'Roboto', sans-serif;
 		font-family: var(--sfe-font-family);
-		color: var(--sfe-black10);
+		color: var(--sfe-black);
 	}
 
 	body {
@@ -60,16 +126,14 @@
 
 	main {
 		display: block;
-		margin: var(--sfe-gutter);
+		margin: 30px;
 	}
 
 	nav {
-		flex-direction: row-reverse;
 		display: flex;
-	}
-
-	nav a {
-		display: contents;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 20px;
 	}
 
 	h1 {
@@ -83,10 +147,10 @@
 	h2 {
 		all: unset;
 		display: block;
-		font-size: 2rem;
-		font-weight: 300;
-		color: var(--sfe-black40);
-		margin-bottom: 15px;
+		color: var(--sfe-black);
+		font-weight: 200;
+		font-size: 1.3rem;
+		line-height: 1.3;
 	}
 
 	h3 {
@@ -94,30 +158,115 @@
 		display: block;
 		font-size: 1.7rem;
 		font-weight: 300;
-		color: var(--sfe-black20);
+		color: var(--sfe-black);
 		margin-top: 40px;
 		margin-bottom: 15px;
 	}
 
+	ol {
+		all: unset;
+		list-style: decimal;
+		list-style-position: inside;
+		display: block;
+		font-size: 1.1rem;
+	}
+
+	li {
+		font-weight: bold;
+		padding-bottom: 15px;
+	}
+
 	p {
+		padding-left: 5px;
+		display: inline;
+		font-weight: 300;
+	}
+
+	a {
+		color: var(--sfe-black);
+	}
+
+	a:hover {
+		text-decoration: none;
+	}
+
+	input[type='text'] {
+		font-family: var(--sfe-font-family);
+		font-weight: 200;
+		flex-grow: 1;
+		background-color: white;
+
+		font-size: 1.1rem;
+		font-weight: 300;
+		color: var(--sfe-black);
+		text-indent: 5px;
+
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+
+		border-radius: 5px;
+		padding: 10px;
+		border: 1px solid #00000080;
+	}
+
+	input[type='text']:focus {
+		border-color: var(--sfe-black);
+	}
+
+	input[type='text']::placeholder {
+		color: black;
+		opacity: .4; 
+		transition: opacity .1s;
+	}
+
+	input:focus::placeholder {
+		opacity: 0;
+	}
+
+	code {
 		all: unset;
 		display: block;
-		color: var(--sfe-black30);
-		font-weight: 200;
-		font-size: 1.1rem;
-		line-height: 1.3;
+		font-weight: 300;
+		font-size: 0.9rem;
+		font-family: monospace;
+		white-space: pre-wrap;
+		word-break: break-word;
+		color: var(--sfe-black);
+		box-sizing: border-box;
+	}
+
+	.copy-box {
+		border: 1px solid #eaeaea;
+		background: #f5f5f5;
+		border-radius: 5px;
+		padding: 10px;
+		cursor: text;
+	}
+
+	.padding {
+		margin: 15px 0;
+	}
+
+	.scrolly-url {
+		display: flex;
+		align-items: center;
+	}
+
+	.scrolly-url code {
+		flex-grow: 1;
 	}
 
 	footer {
-		padding: 20px var(--sfe-gutter);
+		padding: 20px 30px;
 	}
 
 	footer p {
 		all: unset;
-		font-size: 12px;
+		font-size: .8rem;
 		width: 100%;
 		display: block;
 		text-align: center;
-		color: var(--sfe-black20);
+		color: var(--sfe-black);
 	}
 </style>

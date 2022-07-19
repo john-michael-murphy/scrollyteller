@@ -1,10 +1,9 @@
 <script>
-	import Scrollyteller from '$lib/Scrollyteller.svelte';
-	export let mock;
+	import Scrollyteller from '$lib/index.svelte';
 </script>
 
 <body>
-	<Scrollyteller {mock} />
+	<Scrollyteller />
 </body>
 
 <style>

@@ -52,9 +52,10 @@ function is_video(src) {
 
 async function guess_type(slide) {
   try {
-    const type = await Promise.any([is_image(slide), is_video(slide)])
+    const type = await Promise.any([is_image(slide), is_video(slide)]);
     return type;
   } catch (e) {
+    console.log(e)
     return 'text';
   }
 }
@@ -100,7 +101,6 @@ export default async function transform_data(doc) {
 
     slide = fix_bad_slides(slide);
     type = derive_type(type, slide);
-
     if (!type) type = guess_type(slide);
 
     return { annotation, slide, type, caption, alt_text }

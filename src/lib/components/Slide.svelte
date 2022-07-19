@@ -5,8 +5,8 @@ import Loading from "./Loading.svelte";
 
 	export let type;
 	export let slide;
-	export let alt_text;
-	export let caption;
+	export let alt_text = '';
+	export let caption = '';
 	
 	onMount(async () => {
 		type = await type;
@@ -17,17 +17,18 @@ import Loading from "./Loading.svelte";
 	{#if type === 'image'}
 		<img class="scrolly-slide-media" src={slide} alt={alt_text} />
 	{:else if type === 'video'}
+		<!-- svelte-ignore a11y-media-has-caption -->
 		<video class="scrolly-slide-media" src={slide} playsinline controls alt={alt_text} />
 	{:else if type === 'iframe'}
-		<div alt={alt_text} class="scrolly-slide-iframe">
+		<div class="scrolly-slide-iframe">
 			{@html slide}
 		</div>
 	{:else if type === 'text'}
-		<span alt={alt_text} class="scrolly-slide-text">
+		<span class="scrolly-slide-text">
 			{@html slide}
 		</span>
 	{:else if type instanceof Promise}
-		<div class="scrolly-slide-message">
+		<div aria-label="Loading slide" class="scrolly-slide-message">
 			<Loading />
 		</div>
 	{:else}

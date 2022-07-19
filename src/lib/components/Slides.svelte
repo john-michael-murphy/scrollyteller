@@ -1,7 +1,7 @@
 <script>
 	import Slide from '$lib/Slide.svelte';
 	import TitleSlide from './TitleSlide.svelte';
-	
+
 	export let slides;
 	export let title;
 	export let credit;
@@ -37,7 +37,10 @@
 			</li>
 		{/if}
 		{#each slides as { annotation }, index}
-			<li class="scrolly-annotation" style="padding-bottom: {slides.length - 1 === index ? 100 : 0}vh">
+			<li
+				class="scrolly-annotation"
+				style="padding-bottom: {slides.length - 1 === index ? 100 : 0}vh"
+			>
 				<span class="scrolly-annotation-text" use:observe data-index={index}>
 					{@html annotation}
 				</span>
@@ -46,12 +49,12 @@
 	</ol>
 	<div class="scrolly-slides-outer">
 		<ol class="scrolly-slides">
-			{#each slides as slide, index}
+			{#each slides as { type, slide, alt_text, caption }, index}
 				<li
 					class={`scrolly-slide scrolly-slide-${index}`}
 					class:scrolly-visible={index === currIndex}
 				>
-					<Slide {...slide} />
+					<Slide {type} {slide} {alt_text} {caption} />
 				</li>
 			{/each}
 		</ol>
@@ -101,15 +104,15 @@
 	}
 
 	.scrolly-annotation-title {
-        min-height: 100vh;
+		min-height: 100vh;
 		width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		z-index: 1;
 		color: white;
 		padding: 20px;
-    }
+	}
 
 	.scrolly-annotation-text {
 		padding: 20px 0;
@@ -136,10 +139,10 @@
 		}
 
 		.scrolly-annotation-title {
-            background: black;
+			background: black;
 			font-size: 16px;
 			line-height: 20px;
-            margin-bottom: 100vh;
+			margin-bottom: 100vh;
 		}
 
 		.scrolly-annotation-text {
