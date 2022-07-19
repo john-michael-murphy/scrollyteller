@@ -1,5 +1,5 @@
 <script>
-	import Slide from '$lib/Slide.svelte';
+	import Slide from './Slide.svelte';
 	import TitleSlide from './TitleSlide.svelte';
 
 	export let slides;

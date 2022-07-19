@@ -1,3 +1,5 @@
+const iframe = document.currentScript.previousElementSibling;
+
 function enableScroll() {
     const scrollY = document.body.style.top;
     document.body.style.position = '';
@@ -13,23 +15,43 @@ function disableScroll() {
     document.body.style.position = 'fixed';
 }
 
-/** @param {Element} iframe */
-export function init(iframe) {
+const fullscreenStyles = Object.freeze({
+    position: 'fixed',
+    top: '0',
+    bottom: '0',
+    left: '0',
+    right: '0',
+    zIndex: '99999999',
+    height: '100%',
+    width: '100%'
+});
 
-    function closeFullscreen() {
-        window.postMessage('scrolly-fullscreen-false', iframe.getAttribute('href'));
-    }
+let styleCache = {};
 
-    function openFullscreen() {
-        
-    }
+function closeFullscreen() {
+    Object.entries(styleCache).forEach(([styleKey, styleValue]) => {
+        iframe.style[styleKey] = styleValue;
+    });
 
-    document.addEventListener('keydown', () => {
-        if (e.code === 'Escape') closeModal();
-    })
-
-    function handleKeyDown(e) {
-    }
-    
-    el.appendChild()
+    enableScroll();
 }
+
+function openFullscreen() {
+    styleCache = {};
+
+    Object.entries(fullscreenStyles).forEach(([styleKey, styleValue]) => {
+        styleCache[styleKey] = iframe.style[styleKey];
+        iframe.style[styleKey] = styleValue;
+    });
+
+    disableScroll();
+}
+
+document.addEventListener('keydown', () => {
+    if (e.code === 'Escape') closeFullscreen();
+})
+
+window.addEventListener("message", (event) => {
+   if (event.data === 'scrolly-fullscreen-true') openFullscreen();
+   else if (event.data === 'scrolly-fullscreen-false') closeFullscreen();
+}, false);
