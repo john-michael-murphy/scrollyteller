@@ -3,6 +3,7 @@
 	import download_doc from "$lib/utils/download_doc.js";
 
 	const TEMPLATE_LINK = `https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k`;
+	const FAQ_LINK = 'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
 
 	let input;
 	let embed_url = 'Loading...';
@@ -13,10 +14,12 @@
 		set_id(TEMPLATE_LINK);
 	});
 
+	let validity = ''
+
 	async function handle_input() {
 		const link = input.value;
 
-		let validity = '';
+		validity = '';
 		
 		if (!link) {
 			set_id(TEMPLATE_LINK);
@@ -30,7 +33,6 @@
 		}
 
 		input.setCustomValidity(validity);
-		input.reportValidity();
 	}
 
 	function set_id(id) {
@@ -53,7 +55,8 @@
 	<main>
 		<nav>
 			<a href="/v1/embed?id={TEMPLATE_LINK}">Example</a>
-			<a target="_blank" rel="external nofollow" href="https://github.com/john-michael-murphy/scrollyteller">Github</a>
+			<a href={FAQ_LINK} target="_blank" rel="external nofollow">F.A.Q.</a>
+			<a href="https://github.com/john-michael-murphy/scrollyteller" target="_blank" rel="external nofollow" >Github</a>
 		</nav>
 		<h1>scrollyteller</h1>
 		<h2>Generate scroll-driven stories with Google Docs</h2>
@@ -76,7 +79,7 @@
 						rel="external nofollow"
 						href="https://support.google.com/a/users/answer/9308870"
 						>Publish your Google Doc to the web</a
-					>, so that anyone on the internet can view it.
+					>, so that anyone can view it.
 				</p>
 			</li>
 			<li>
@@ -92,6 +95,9 @@
 						on:change|preventDefault={handle_input}
 					/>
 				</form>
+				{#if validity}
+				<p class="error-message">{validity}</p>
+				{/if}
 			</li>
 			<li>
 				<p>Use this url to link directly to your Scrollyteller.</p>
@@ -220,6 +226,10 @@
 		transition: opacity .1s;
 	}
 
+	input[type='text']::invalid {
+	background: blue;
+	}
+
 	input:focus::placeholder {
 		opacity: 0;
 	}
@@ -242,6 +252,15 @@
 		border-radius: 5px;
 		padding: 10px;
 		cursor: text;
+	}
+
+	.error-message {
+		display: block;
+		color: #da0000;
+		font-size: 0.9rem;
+		font-family: monospace;
+		font-weight: 600;
+		word-break: break-word;
 	}
 
 	.padding {

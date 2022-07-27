@@ -72,7 +72,7 @@ import Loading from "./Loading.svelte";
 		margin: 0 20px;
 		max-width: var(--scrolly-max-text-width);
 		white-space: pre-wrap;
-		line-height: 24px;
+		line-height: 28px;
 		color: black;
 		font-size: 18px;
 	}

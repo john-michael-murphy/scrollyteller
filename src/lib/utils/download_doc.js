@@ -38,7 +38,7 @@ function get_doc_id(url) {
 
   if (file_id) return file_id;
   if (public_id) return public_id
-  throw new Error('Invalid Google Doc Link');
+  throw new Error('Invalid Google Doc Link. Your link should look like this example: https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k');
 }
 
 export default async function download_doc(link) {
@@ -49,14 +49,15 @@ export default async function download_doc(link) {
   const path = id?.startsWith("2PACX") ? `e/${id}/pub` : `${id}/pub`
   const url = `${base}/${path}`;
   
+  const shareError = 'Cannot access Google Doc. Make sure you published your document to the web (File > Share > Publish to web)';
+
   const res = await fetch(url).catch(e => {
-    console.error(e);
-    throw new Error('Encountered an error when fetching Google Doc. Are you connected to the internet?')
+    throw new Error(shareError)
   });
 
   const html = await res.text();
 
-  if (res.status === 404) throw new Error('Cannot access Google Doc. Are you sure you published it to the web?');
+  if (res.status === 404) throw new Error(shareError);
   if (!res.ok) throw new Error(`Encountered an unknown error when fetching the Google Doc: ${res.status} ${res.statusText}`);
 
   try {
