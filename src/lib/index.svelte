@@ -5,6 +5,7 @@
 	import Message from '$lib/components/Message.svelte';
 	import download_doc from '$lib/utils/download_doc.js';
 	import doc_to_props from '$lib/utils/doc_to_props.js';
+	import Fullscreen from './components/Fullscreen.svelte';
 
 	let props;
 	let error;
@@ -25,14 +26,19 @@
 
 	let fullscreen = false;
 
-	function toggle_fullscreen() {
-		fullscreen = !fullscreen;
-		window.parent.postMessage(`scrolly-fullscreen-${fullscreen}`, '*');
+	function open() {
+		fullscreen = true;
+		window.parent.postMessage(`scrolly-fullscreen-true`, '*');
+	}
+
+	function close() {
+		fullscreen = false;
+		window.parent.postMessage(`scrolly-fullscreen-false`, '*');
 	}
 </script>
 
 <div>
-	<main class={iframe && !fullscreen ? "blur" : null}>
+	<main>
 		{#if props?.slides?.length}
 			<Slides {...props} />
 		{:else if error}
@@ -46,7 +52,7 @@
 		{/if}
 	</main>
 	{#if iframe}
-		<button on:click={toggle_fullscreen}>{fullscreen ? 'Close' : 'Fullscreen'}</button>
+		<Fullscreen title={props?.title} {open} {close} {fullscreen} />
 	{/if}
 </div>
 
@@ -55,12 +61,5 @@
 <style>
 	main {
 		position: relative;
-	}
-
-	button {
-		position: fixed;
-		z-index: 1;
-		bottom: 10px;
-		right: 10px;
 	}
 </style>

@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import download_doc from "$lib/utils/download_doc.js";
+import get_snippet from '$lib/utils/get_snippet';
 
 	const TEMPLATE_LINK = `https://docs.google.com/document/d/1TavVvjGEsgbP22xQ0elc_6_fxHIxjqyLXZhzEE3UA2k`;
 	const FAQ_LINK = 'https://docs.google.com/document/d/e/2PACX-1vQCjUjR49YvH9A_kH32RKwOgbYfuBE8WQC1KZ3L6mKihIoDjy6fIOggErjuGXXSL9FB7jO2RVWboeF5/pub';
@@ -15,6 +16,7 @@
 	});
 
 	let validity = ''
+
 
 	async function handle_input() {
 		const link = input.value;
@@ -36,9 +38,10 @@
 	}
 
 	function set_id(id) {
-		const route = import.meta.env.DEV ? 'v1/embed' : 'v1/embed.html';
+	    const route = import.meta.env.DEV ? 'v1/embed' : 'v1/embed.html';
 		embed_url = new URL(`/${route}?id=${id}`, window.location.origin).toString();
-		snippet = `<iframe frameborder="0" style="width:100%;height:700px;display:block" src="${embed_url}" />`;
+		const script_url = new URL(`/iframe.js`, window.location.origin).toString();
+		snippet = get_snippet(embed_url, script_url);
 	}
 </script>
 

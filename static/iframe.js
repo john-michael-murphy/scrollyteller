@@ -1,6 +1,8 @@
 const iframe = document.currentScript.previousElementSibling;
 
-function enableScroll() {
+iframe.setAttribute("scrolling", "no")
+
+function enableParentScroll() {
     const scrollY = document.body.style.top;
     document.body.style.position = '';
     document.body.style.top = '';
@@ -10,7 +12,7 @@ function enableScroll() {
     }
 }
 
-function disableScroll() {
+function disableParentScroll() {
     document.body.style.top = `-${window.scrollY}px`;
     document.body.style.position = 'fixed';
 }
@@ -23,7 +25,8 @@ const fullscreenStyles = Object.freeze({
     right: '0',
     zIndex: '99999999',
     height: '100%',
-    width: '100%'
+    width: '100%',
+    border: 'unset',
 });
 
 let styleCache = {};
@@ -33,7 +36,8 @@ function closeFullscreen() {
         iframe.style[styleKey] = styleValue;
     });
 
-    enableScroll();
+    iframe.setAttribute("scrolling", "no")
+    enableParentScroll();
 }
 
 function openFullscreen() {
@@ -44,7 +48,8 @@ function openFullscreen() {
         iframe.style[styleKey] = styleValue;
     });
 
-    disableScroll();
+    iframe.setAttribute("scrolling", "yes")
+    disableParentScroll();
 }
 
 document.addEventListener('keydown', () => {
